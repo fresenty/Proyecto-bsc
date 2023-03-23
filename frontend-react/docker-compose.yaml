@@ -1,0 +1,30 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+
+services:
+
+  react:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./src:/app/src
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - REACT_APP_BASE_URL=http://127.0.0.1:8000/api
+      - REACT_APP_API_URL=http://127.0.0.1:8000/api
+      - REACT_APP_API_IMAGES=http://127.0.0.1:8000/images/
+      - TZ=America/Bogota
+    networks:
+      - pets_net
+
+networks:
+  pets_net:
+      name: pets_net
+      external: true
+    
