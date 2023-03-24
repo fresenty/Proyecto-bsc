@@ -298,40 +298,15 @@ export default class Register extends Component {
                 <div className="form-group">
                   <label className="" htmlFor="group_name">Rol de usuario</label>
                   <Select
-                    name="role"
-                    title="role"
-                    value={roles}
+                       
                     options={roles}
                     onChange={this.onChangeRole}
                     validations={[required, vrole]}
                   />
-                  {/* <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    validations={[required, vpassword]}
-                  /> */}
-                  {/* <tbody>
-                    {this.state.roles.map((object) => (
-                      <tr key={object.ID}>
-                        <td className="col-sm-2">{object.role}</td>
-                      </tr>
-                    ))}
-                  </tbody> */}
+              
                 </div>
 
-                {/* <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown button
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div> */}
+               
 
 
                 <div className="form-group">

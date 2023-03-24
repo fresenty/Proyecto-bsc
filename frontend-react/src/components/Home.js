@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../css/home.css";
+import "../css/coins.css";
 import logo from "../img/bsc-logo.png";
 import UserService from "../services/user.service";
 

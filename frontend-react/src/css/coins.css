@@ -1,0 +1,72 @@
+/* Navbar */
+.navbar {
+    background-color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link {
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #f0ad4e;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link.active {
+    color: #f0ad4e;
+    transform: scale(1.2);
+    transition: all 0.3s ease;
+  }
+  
+  /* Table */
+  .home-container {
+    background-color: #f7f7f7;
+    padding: 40px 40px;
+    transition: all 0.3s ease;
+  }
+  
+  .table {
+    background-color: #fff;
+    margin-top: 50px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .table th {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .table td {
+    
+    padding: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f0ad4e;
+    color: #fff;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  
+  .w-rounded-full {
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .w-rounded-full:hover {
+    transform: rotate(360deg) scale(1.2);
+    transition: all 0.3s ease;
+  }
+  

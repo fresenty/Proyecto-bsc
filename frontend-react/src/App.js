@@ -20,7 +20,7 @@ import BoardAdmin from "./components/BoardAdmin";
 import BoardEmpresario from "./components/BoardEmpresario";
 import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
-import Criptomonedas from "./components/CriptomoMonedas";
+import Criptomonedas from "./components/Coins";
 
 class App extends Component {
   constructor(props) {

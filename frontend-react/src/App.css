@@ -1,45 +1,125 @@
-label {
-  display: block;
-  margin-top: 10px;
+/* Añadido: estilo general para transiciones de animación */
+* {
+  transition: all 0.2s ease-in-out;
 }
 
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #333;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #f6b93b;
+}
+
+.nav-link.active {
+  color: #f6b93b;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-brand:hover {
+  color: #f6b93b;
+}
+
+.navbar-toggler {
+  border: none;
+  background-color: transparent;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  transition: transform 0.2s ease-in-out;
+}
+
+.navbar-toggler:hover .navbar-toggler-icon {
+  transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .navbar-collapse.show .navbar-nav {
+    transform: scaleY(1);
+  }
+
+  .navbar-nav .nav-item {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 20px;
+    color: #333;
+    transition: color 0.2s ease-in-out;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link:focus {
+    color: #f6b93b;
+  }
+
+  .navbar-nav .nav-link.active {
+    color: #f6b93b;
+  }
+}
+
+
+/* Modificado: estilo para el contenedor de la tarjeta */
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+/* Modificado: estilo para la imagen de perfil de la tarjeta */
+.profile-img-card {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Modificado: estilo para la tarjeta */
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
-  margin-top: 50px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-
-body {
-  background-color: #ffffff;
-}
-
-.nav-link link{
-  color:antiquewhite;
-}
-
-.nav-link {
- 
-  font-size: 16px;
+/* Añadido: estilo para la animación al pasar el mouse sobre la tarjeta */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.4);
 }
