@@ -30,5 +30,6 @@ func ConnectDB() {
 	//DB.Create(&model.UserType{Role: "academico"})  // init database !import!
 	//DB.Create(&model.UserType{Role: "empresario"}) // init database !import!
 	//DB.Create(&model.UserType{Role: "admin"})      // init database !import!
+	//DB.Create(&model.Noticia{})
 	fmt.Println("Database Migrated")
 }

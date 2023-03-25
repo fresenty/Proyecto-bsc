@@ -4,13 +4,13 @@ import (
 	"gorm.io/gorm"
 )
 
-// UserType struct
+// Estructura de modelo para el tipo de usuario
 type UserType struct {
 	gorm.Model
 	Role string `gorm:"uniqueIndex; not null" json:"role"`
 }
 
-// User struct
+// Estructura de modelo para los usuarios
 type User struct {
 	gorm.Model
 	Username   string   `gorm:"not null; uniqueIndex" json:"username"`
@@ -20,4 +20,12 @@ type User struct {
 	LastName   string   `json:"lastname"`
 	UserTypeId int      `gorm:"default:1" json:"user_type_id"`
 	UserType   UserType `gorm:"foreignKey:UserTypeId; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+}
+
+// Estructura de modelo para las noticias
+type Noticia struct {
+	ID        uint   `gorm:"primaryKey"`
+	Titulo    string `gorm:"not null"`
+	Contenido string `gorm:"not null"`
+	Imagen    []byte `gorm:"not null"`
 }
