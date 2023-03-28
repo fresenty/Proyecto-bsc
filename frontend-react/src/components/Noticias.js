@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NoticiasService from '../services/noticias.service';
+import "../css/coins.css";
 
 class Noticias extends Component {
   constructor(props) {
@@ -18,11 +19,9 @@ class Noticias extends Component {
         const getNoticiaImagenes = noticias.map(noticia => {
           return NoticiasService.getNoticiaByID(noticia.ID).then(response => {
             console.log('Respuesta del servicio para noticia con ID', noticia.ID, ':', response.data);
-            const decodedBase64 = atob(response.data.data.Imagen);
-            const imagenURL = `data:image/jpeg;base64,${decodedBase64}`;
             return {
               ...noticia,
-              ImagenURL: imagenURL
+              ImagenURL: response.data.data.Imagen
             }
           });
         });
@@ -43,21 +42,23 @@ class Noticias extends Component {
       }
     );
   }
-
   render() {
-    console.log(this.state.content);
     const { content } = this.state;
     return (
-      <div>
-        <ul>
+      <div className="container">
+        <div className="row">
           {content.map((noticia) => (
-            <li key={noticia.ID}>
-              <h2>{noticia.Titulo}</h2>
-              {noticia.ImagenURL && <img src={noticia.ImagenURL} alt="Imagen de noticia" />} {/* Si la noticia tiene imagen, la muestra */}
-              <p>{noticia.Contenido}</p>
-            </li>
+            <div className="col-sm-4" key={noticia.ID}>
+              <div className="card">
+                <img src={process.env.REACT_APP_API_IMAGES+noticia.Imagen} className="card-img-top" alt="Imagen de noticia" />
+                <div className="card-body">
+                  <h5 className="card-title">{noticia.Titulo}</h5>
+                  <p className="card-text">{noticia.Contenido}</p>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     );
   }

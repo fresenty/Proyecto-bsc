@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../css/home.css";
+import "../css/coins.css";
 import CoinsService from "../services/coins.service";
 
 class Coins extends Component {

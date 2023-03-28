@@ -1,3 +1,6 @@
+.home-container {
+  background-color: #ffffff;
+}
 /* home.css */
 
 .img-thumbnail.rounded-circle {
@@ -38,91 +41,129 @@
   margin-bottom: 2rem;
 }
 
-.image-container {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 2rem;
+
+.home-container i {
+  width :300px ;
+  height :300px ;
+  border-radius :50% ;
+  overflow :hidden ;
+  margin-bottom :2rem ;
+  animation-name :spin ;
+  animation-duration :4s ;
+  animation-iteration-count :infinite ;
+  animation-timing-function :linear ;
 }
 
-.image {
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
+@keyframes spin{
+  from{
+      transform :rotate(0deg) ;
+  }
+  to{
+      transform :rotate(360deg) ;
+  }
 }
 
-.text {
-  font-size: 1.2rem;
-  color: #666666;
-  line-height: 1.5;
+.image{
+    width :50% ;
+    height :50% ;
+    object-fit :cover ;
 }
 
-.button {
-  background-color: #3f3d56;
-  color: #fff;
-  font-weight: bold;
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 5px;
-  margin-top: 2rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.text{
+    font-size :1.2rem ;
+    color:#666666 ;
+    line-height :1.5 ;
 }
 
-.button:hover {
-  background-color: #f6b93b;
-  color: #3f3d56;
+.button{
+    background-color:#3f3d56 ;
+    color:#fff ;
+    font-weight:bold ;
+    padding :1rem2rem ;
+    border:none ;
+    border-radius :5px ;
+    margin-top :2rem ;
+    cursor:pointer ;
+    transition :all .2s ease-in-out ;
 }
 
-.button:focus {
-  outline: none;
+.button:hover{
+    background-color:#f6b93b ;
+    color:#3f3d56 ;
 }
 
+.button:focus{
+    outline:none ;
+}
 /* App.css */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
 
 /* Estilos generales */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+    margin :0 ;
+    padding :0 ;
+    box-sizing:border-box ;
 }
 
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #ffffff;
+body{
+    font-family:'Montserrat', sans-serif ;
+    background-color:#ffffff ;
 }
 
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+.card{
+    border:none ;
+    border-radius :10px ;
+    box-shadow :0px4px8px rgba(0,0,0,.1) ;
+    transition :transform .2s ease-in-out , box-shadow .2s ease-in-out ;
 }
 
-.card:hover {
-  transform: translateY(-0.25rem);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.card:hover{
+    transform :translateY(-.25rem) ;
+    box-shadow :0px8px16px rgba(0,0,0,.2) ;
 }
 
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
+.card-title{
+    font-size :1.2rem ;
+    font-weight:bold ;
 }
 
-.card-text {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+.card-text{
+    font-size :1rem ;
+    margin-bottom :1rem ;
 }
 
-.card-img-top {
-  border-radius: 10px 10px 0 0;
+.card-img-top{
+    border-radius :10px10px00 ;
+    transition :transform .2s ease-in-out ;
+}
+
+.card:hover .card-img-top{
+    transform :scale(1.1) ; 
+}
+
+
+
+/*cambios*/
+.image-container:hover {
+  transform: scale(1.05);
   transition: transform 0.2s ease-in-out;
 }
 
-.card:hover .card-img-top {
-  transform: scale(1.1);
+body {
+  scroll-behavior: smooth;
+  padding-top: 70px; /* 70px es la altura del Navbar */
 }
+
+.button:hover {
+  background-color: #f6b93b;
+  color: #3f3d56;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:focus {
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+

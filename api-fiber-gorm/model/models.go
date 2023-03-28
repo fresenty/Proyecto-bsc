@@ -27,5 +27,5 @@ type Noticia struct {
 	ID        uint   `gorm:"primaryKey"`
 	Titulo    string `gorm:"not null"`
 	Contenido string `gorm:"not null"`
-	Imagen    []byte `gorm:"not null"`
+	Imagen    string `gorm:"not null"`
 }
