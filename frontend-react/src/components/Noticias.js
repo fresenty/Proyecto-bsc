@@ -69,7 +69,7 @@ class Noticias extends Component {
         <div className="row">
           {noticias.map((noticia) => (
             <div key={noticia.ID} className="col-md-4 mb-4">
-              <div className="card">
+              <div id="noti" className="card">
                 <img
                   src={process.env.REACT_APP_API_IMAGES + noticia.ImagenURL}
                   className="card-img-top"
