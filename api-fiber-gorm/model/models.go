@@ -1,6 +1,8 @@
 package model
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
@@ -28,4 +30,14 @@ type Noticia struct {
 	Titulo    string `gorm:"not null"`
 	Contenido string `gorm:"not null"`
 	Imagen    string `gorm:"not null"`
+}
+
+// Estructura de modelo para la informacion de Home
+type HomeContent struct {
+    ID        uint      `gorm:"primaryKey"`
+    Title     string    `json:"title"`
+    Content   string    `json:"content"`
+    Image     string    `json:"image"`
+    CreatedAt time.Time `json:"created_at"`
+    UpdatedAt time.Time `json:"updated_at"`
 }

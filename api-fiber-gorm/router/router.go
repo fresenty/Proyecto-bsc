@@ -40,4 +40,12 @@ func SetupRoutes(app *fiber.App) {
 	noticias.Post("/", handler.CreateNoticia)
 	noticias.Put("/:id", handler.UpdateNoticiaByID)
 	noticias.Delete("/:id", handler.DeleteNoticia)
+
+    // HomeContent
+	home := api.Group("/home")
+	home.Get("/", handler.GetAllHomeContent)
+	home.Get("/:id", handler.GetHomeContentByID)
+	home.Post("/", handler.CreateHomeContent)
+	home.Put("/:id", handler.UpdateHomeContentByID)
+	home.Delete("/:id", handler.DeleteHomeContentByID)
 }
