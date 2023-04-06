@@ -38,6 +38,21 @@ type HomeContent struct {
     Title     string    `json:"title"`
     Content   string    `json:"content"`
     Image     string    `json:"image"`
+	Title2     string    `json:"title2"`
+    Content2   string    `json:"content2"`
+    Title3     string    `json:"title3"`
+	Content3   string    `json:"content3"`
+	Title4     string    `json:"title4"`
+    Content4   string    `json:"content4"`
+    Image2     string    `json:"image2"`
+	Title5     string    `json:"title5"`
+    Content5   string    `json:"content5"`
+    Image3     string    `json:"image3"`
+	Title6     string    `json:"title6"`
+    Content6  string    `json:"content6"`
+    Image4     string    `json:"image4"`
+	Title7     string    `json:"title7"`
+    Content7  string    `json:"content7"`
     CreatedAt time.Time `json:"created_at"`
     UpdatedAt time.Time `json:"updated_at"`
 }

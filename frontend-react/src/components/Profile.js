@@ -50,26 +50,25 @@ export default class Profile extends Component {
       return <Navigate to={this.state.redirect} />;
     }
 
-    // const { currentUser } = this.state;
-    // console.log(this.state.content);
     const { content } = this.state;
-    // console.log(content)
-
     return (
       <div className="col-md-12">
         <div className="container">
           {this.state.userReady ? (
-            <div>
-              <h3 style={{ color: "white" }}>
-                <strong>Nombre de Usuario: {content.username}</strong>
-              </h3>
-
-              <p>
-                <strong>Nombre:</strong> {content.firstname} {content.lastname}
-              </p>
-              <p>
-                <strong>Email:</strong> {content.email}
-              </p>
+            <div className="card">
+              <div className="card-header bg-dark text-white">
+                <h3 className="card-title">
+                  <strong>Apodo: {content.username}</strong>
+                </h3>
+              </div>
+              <div className="card-body">
+                <p>
+                  <strong>Nombre:</strong> {content.firstname} {content.lastname}
+                </p>
+                <p>
+                  <strong>Email:</strong> {content.email}
+                </p>
+              </div>
             </div>
           ) : null}
         </div>
