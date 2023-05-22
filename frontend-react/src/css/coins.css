@@ -57,7 +57,7 @@ body {
 .table tbody tr:hover td{
  background-color: #1C1537;
  color: #fff !important;
- transform: scale(1.25);
+ transform: scale(1.0.1);
 }
 
 .table tbody tr:hover td img {

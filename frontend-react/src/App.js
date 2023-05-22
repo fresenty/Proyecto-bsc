@@ -15,6 +15,7 @@ import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -185,7 +186,7 @@ class App extends Component {
           </div>
         </nav>
 
-        <div className="container mt-3">
+        <div className="container-fluid ">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />

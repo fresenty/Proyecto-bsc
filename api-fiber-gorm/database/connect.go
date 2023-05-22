@@ -31,6 +31,9 @@ func ConnectDB() {
 	//DB.Create(&model.UserType{Role: "empresario"}) // init database !import!
 	//DB.Create(&model.UserType{Role: "admin"})      // init database !import!
 	//DB.Create(&model.Noticia{})
+	DB.Create(&model.Academico{})
+	DB.AutoMigrate(&model.Academico{})
+	//DB.AutoMigrate(&model.User{})
 	//DB.Create(&model.HomeContent{})
 	//DB.AutoMigrate(&model.HomeContent{})
 
