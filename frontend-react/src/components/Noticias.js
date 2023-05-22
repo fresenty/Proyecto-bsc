@@ -81,7 +81,8 @@ class Noticias extends Component {
                     {noticia.Contenido.substring(0, 100) + "..."}
                   </p>
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-dark"
+                    style={{ backgroundColor: "#1C1537" }}
                     onClick={() => this.handleNoticiaClick(noticia)}
                   >
                     Leer más
