@@ -49,11 +49,28 @@ func SetupRoutes(app *fiber.App) {
 	home.Put("/:id", handler.UpdateHomeContentByID)
 	home.Delete("/:id", handler.DeleteHomeContentByID)
 
-	 // Academicos
-	 academicos := api.Group("/academicos")
-	 academicos.Get("/", handler.GetAllAcademicos)
-	 academicos.Get("/:id", handler.GetAcademicoByID)
-	 academicos.Post("/", handler.CreateAcademico)
-	 academicos.Put("/:id", handler.UpdateAcademicoByID)
-	 academicos.Delete("/:id", handler.DeleteAcademico)
-	}
+	// Academicos
+	academicos := api.Group("/academicos")
+	academicos.Get("/", handler.GetAllAcademicos)
+	academicos.Get("/:id", handler.GetAcademicoByID)
+	academicos.Post("/", handler.CreateAcademico)
+	academicos.Put("/:id", handler.UpdateAcademicoByID)
+	academicos.Delete("/:id", handler.DeleteAcademico)
+
+	// Empresarios
+    empresarios := api.Group("/empresarios")
+    empresarios.Post("/", handler.CreateEmpresario)
+    empresarios.Get("/", handler.GetAllEmpresarios)
+    empresarios.Get("/:id", handler.GetEmpresarioByID)
+    empresarios.Put("/:id", handler.UpdateEmpresarioByID)
+    empresarios.Delete("/:id", handler.DeleteEmpresario)
+
+	// Inscripciones
+	inscripciones := api.Group("/inscripciones")
+	inscripciones.Post("/", handler.CreateInscripcion)
+	inscripciones.Get("/", handler.GetAllInscripciones)
+	inscripciones.Get("/:id", handler.GetInscripcionByID)
+	inscripciones.Put("/:id", handler.UpdateInscripcionByID)
+	inscripciones.Delete("/:id", handler.DeleteInscripcion)
+
+}

@@ -25,14 +25,33 @@ type User struct {
     UserType   UserType `gorm:"foreignKey:UserTypeId; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
 
+// Inscripcion representa una inscripción en el sistema
+type Inscripcion struct {
+	gorm.Model
+	ID        uint   `gorm:"primaryKey"`
+	IDUser      int `gorm:"not null" json:"IDUser"`
+	Duser   User  `gorm:"foreignKey:IDUser; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	IDAcademico int `json:"id_academico"`
+	DAcademico  Academico  `gorm:"foreignKey:IDAcademico; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	IDEmpresario int `json:"id_empresario"`
+	DEmpresario  Empresario  `gorm:"foreignKey:IDEmpresario; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	IsComplete  bool `json:"is_complete"`
+}
+
 // Estructura de modelo para contenido de academico
 type Academico struct {
 	gorm.Model
 	ID        uint   `gorm:"primaryKey"`
 	Titulo    string `gorm:"not null" json:"Titulo"`
 	Contenido string `gorm:"not null" json:"Contenido"`
-	UserID    uint   `gorm:"default:1" json:"UserID"`
-	UserI   User  `gorm:"foreignKey:UserID; constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+   }
+
+   // Estructura de modelo para contenido de academico
+type Empresario struct {
+	gorm.Model
+	ID        uint   `gorm:"primaryKey"`
+	Titulo    string `gorm:"not null" json:"Titulo"`
+	Contenido string `gorm:"not null" json:"Contenido"`
    }
 
 // Estructura de modelo para las noticias

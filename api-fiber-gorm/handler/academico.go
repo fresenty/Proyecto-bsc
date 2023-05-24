@@ -45,7 +45,6 @@ func GetAllAcademicos(c *fiber.Ctx) error {
  "ID": academico.ID,
  "Titulo": academico.Titulo,
  "Contenido": academico.Contenido,
- "UserID": academico.UserID,
  }
  }
 
@@ -70,7 +69,6 @@ func GetAcademicoByID(c *fiber.Ctx) error {
 	"ID": academico.ID,
 	"Titulo": academico.Titulo,
 	"Contenido": academico.Contenido,
-	"UserID": academico.UserID,
 	}
    
 	return c.JSON(fiber.Map{"status": "success", "message": "Academico encontrado", "data": data})
