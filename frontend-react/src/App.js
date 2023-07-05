@@ -15,7 +15,6 @@ import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -92,23 +91,17 @@ class App extends Component {
                   <Link
                     to={"/home"}
                     className="nav-link"
-                    style={{ color: "white" }}
+                    
                   >
                     Inicio
                   </Link>
                 </li>
 
-                {!currentUser && (
-                  <li className="nav-item">
-                    <Link
-                      to={"/home"}
-                      className="nav-link"
-                      style={{ color: "white" }}
-                    >
-                      Publico general
+                <li className="nav-item">
+                    <Link to={"/academico"} className="nav-link">
+                      Contenido
                     </Link>
                   </li>
-                )}
 
                 {showAdminBoard && (
                   <li className="nav-item">
@@ -141,6 +134,11 @@ class App extends Component {
                     </Link>
                   </li>
                 )}
+                <li className="nav-item">
+                  <Link to={"/academico-noticias"} className="nav-link">
+                    Noticias
+                  </Link>
+                </li>
 
                 {showAcademicoBoard && (
                   <li className="nav-item">
@@ -149,6 +147,12 @@ class App extends Component {
                     </Link>
                   </li>
                 )}
+
+                <li className="nav-item">
+                  <Link to={"/criptomonedas"} className="nav-link">
+                    Criptomonedas
+                  </Link>
+                </li>
               </ul>
               {currentUser ? (
                 <ul className="navbar-nav ms-auto">

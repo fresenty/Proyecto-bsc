@@ -1,12 +1,12 @@
 .home-container {
-  background-color: #ffffff;
+  background-color: #E9F2FF;
 }
 
 /* portada */
 
 .hero-image {
   height: 81vh;
-  background-image: url('../img/portada.jpg');
+  background-image: url("../img/portada.jpg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -41,11 +41,11 @@
   padding: 2rem;
 }
 
-.home-container h2{
-  color: #000000;
+.home-container h2 {
+  color: #0d66d0;
 }
 .home-container h1 {
-  color: #000000;
+  color: #0d66d0;
 }
 
 .container h1 {
@@ -101,21 +101,10 @@
   outline: none;
 }
 
-/* App.css */
-
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap");
-
-/* Estilos generales */
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  font-family: "Montserrat", sans-serif;
-  background-color: #ffffff;
 }
 
 .card {
@@ -138,7 +127,6 @@ body {
 .card-text {
   font-size: 1rem;
   margin-bottom: 1rem;
-  
 }
 
 .card-img-top {

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import Select from 'react-select'
+import Select from "react-select";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import avatar from "../img/avatar-01.png";
-
+import avatar from "../img/bsc-logo.png";
+import "../css/Register.css";
 import AuthService from "../services/auth.service";
 import RoleService from "../services/role.service";
 
@@ -105,7 +105,7 @@ export default class Register extends Component {
       successful: false,
       message: "",
       redirect: null,
-      roles: [],
+      roles: 0,
     };
   }
 
@@ -159,15 +159,15 @@ export default class Register extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      console.log("de nuevo")
-      console.log(this.state.role)
+      console.log("de nuevo");
+      console.log(this.state.role);
       AuthService.register(
         this.state.username,
         this.state.email,
         this.state.password,
         this.state.firstname,
         this.state.lastname,
-        this.state.role,
+        this.state.role
       ).then(
         (response) => {
           this.setState({
@@ -196,21 +196,21 @@ export default class Register extends Component {
 
   componentDidMount() {
     RoleService.getRoles().then(
-      response => {
-        console.log(response)
-        console.log(response.data.data)
+      (response) => {
+        console.log(response);
+        console.log(response.data.data);
         this.setState({
-          roles: response.data.data
+          roles: response.data.data,
         });
       },
-      error => {
+      (error) => {
         this.setState({
           roles:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString()
+            error.toString(),
         });
       }
     );
@@ -218,131 +218,133 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div className="col-md-12">
+      <div className="col-md-6 mx-auto">
         <div className="card card-container">
           <img
             src={avatar}
             alt="profile-img"
             className="profile-img-card"
-            style={{ width: "200px", height: "200px" }}
           />
-
-          <Form
-            onSubmit={this.handleRegister}
-            ref={(c) => {
-              this.form = c;
-            }}
-          >
-            {!this.state.successful && (
-              <div>
-                <div className="form-group">
-                  <label htmlFor="username">Nombre de usuario</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    validations={[required, vusername]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="firstname">Primer nombre</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="firstname"
-                    value={this.state.firstname}
-                    onChange={this.onChangeFirstName}
-                    validations={[required, vfirstname]} //
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="lastname">Primer Apellido</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="lastname"
-                    value={this.state.lastname}
-                    onChange={this.onChangeLastName}
-                    validations={[required, vlastname]} //
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    validations={[required, email]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Contraseña</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    validations={[required, vpassword]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="" htmlFor="group_name">Rol de usuario</label>
-                  <Select
-                       
-                    options={roles}
-                    onChange={this.onChangeRole}
-                    validations={[required, vrole]}
-                  />
-              
-                </div>
-
-               
-
-
-                <div className="form-group">
-                  <button
-                    className="btn btn-primary btn-block"
-                    style={{ backgroundColor: "#323b5a" }}
-                  >
-                    Registrarse
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {this.state.message && (
-              <div className="form-group">
-                <div
-                  className={
-                    this.state.successful
-                      ? "alert alert-success"
-                      : "alert alert-danger"
-                  }
-                  role="alert"
-                >
-                  {this.state.message}
-                </div>
-              </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
+  
+          {!this.state.successful && (
+            <Form
+              onSubmit={this.handleRegister}
               ref={(c) => {
-                this.checkBtn = c;
+                this.form = c;
               }}
-            />
-          </Form>
+            >
+              <div className="form-group">
+                <label htmlFor="username">Nombre de usuario</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.onChangeUsername}
+                  validations={[required, vusername]}
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="firstname">Primer nombre</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="firstname"
+                  value={this.state.firstname}
+                  onChange={this.onChangeFirstName}
+                  validations={[required, vfirstname]}
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="lastname">Primer Apellido</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="lastname"
+                  value={this.state.lastname}
+                  onChange={this.onChangeLastName}
+                  validations={[required, vlastname]}
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  validations={[required, email]}
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="password">Contraseña</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  validations={[required, vpassword]}
+                />
+              </div>
+  
+              <div className="form-group">
+                <label className="" htmlFor="group_name">
+                  Rol de usuario
+                </label>
+                <Select
+                  options={roles}
+                  onChange={this.onChangeRole}
+                  validations={[required, vrole]}
+                  className="form-control"
+                />
+              </div>
+  
+              <div className="form-group">
+                <button
+                  className="btn btn-primary btn-block"
+                  style={{ backgroundColor: "#0d66d0" }}
+                >
+                  Registrarse
+                </button>
+              </div>
+  
+              {this.state.message && (
+                <div className="form-group">
+                  <div
+                    className={
+                      this.state.successful
+                        ? "alert alert-success"
+                        : "alert alert-danger"
+                    }
+                    role="alert"
+                  >
+                    {this.state.message}
+                  </div>
+                </div>
+              )}
+  
+              <CheckButton
+                style={{ display: "none" }}
+                ref={(c) => {
+                  this.checkBtn = c;
+                }}
+              />
+            </Form>
+          )}
+  
+          {this.state.successful && (
+            <div className="alert alert-success" role="alert">
+              Registro exitoso. Por favor, inicie sesión.
+            </div>
+          )}
         </div>
       </div>
     );
   }
-}
+}  

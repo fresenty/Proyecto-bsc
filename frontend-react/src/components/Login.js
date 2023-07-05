@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import avatar from "../img/avatar-01.png";
+import avatar from "../img/bsc-logo.png";
 import AuthService from "../services/auth.service";
+import "../css/Login.css";
 
 import { withRouter } from "../common/with-router";
 
@@ -56,7 +57,8 @@ class Login extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
-        () => {
+        (response) => {
+          sessionStorage.setItem("userID",response.data.id)
           this.props.router.navigate("/profile");
           window.location.reload();
         },
@@ -83,8 +85,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
+      <div className="col-md-12 mt-5">
+        <div id="login-form" class="card-container">
           <img
             src={avatar}
             alt="profile-img"
@@ -126,7 +128,7 @@ class Login extends Component {
             <button
               className="btn btn-primary btn-block"
               disabled={this.state.loading}
-              style={{ backgroundColor: '#323b5a', marginTop: '1rem' }}
+              style={{ backgroundColor: '#0d66d0', marginTop: '1rem' }}
             >
               {this.state.loading && (
                 <span className="spinner-border spinner-border-sm"></span>

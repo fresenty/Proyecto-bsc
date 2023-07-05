@@ -69,7 +69,8 @@ func SetupRoutes(app *fiber.App) {
 	inscripciones := api.Group("/inscripciones")
 	inscripciones.Post("/", handler.CreateInscripcion)
 	inscripciones.Get("/", handler.GetAllInscripciones)
-	inscripciones.Get("/:id", handler.GetInscripcionByID)
+	inscripciones.Put("/iscomplete/:id_user", handler.UpdateIsComplete)
+	inscripciones.Get("/:id", handler.GetInscripcionByUserID)
 	inscripciones.Put("/:id", handler.UpdateInscripcionByID)
 	inscripciones.Delete("/:id", handler.DeleteInscripcion)
 

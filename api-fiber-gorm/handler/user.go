@@ -1,13 +1,13 @@
 package handler
 
 import (
-    "api-fiber-gorm/database"
-    "api-fiber-gorm/model"
-    "strconv"
+	"api-fiber-gorm/database"
+	"api-fiber-gorm/model"
+	"strconv"
 
-    "github.com/gofiber/fiber/v2"
-    "github.com/golang-jwt/jwt/v4"
-    "golang.org/x/crypto/bcrypt"
+	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func hashPassword(password string) (string, error) {
@@ -63,49 +63,59 @@ func GetUser(c *fiber.Ctx) error {
     user.Password = ""
     return c.JSON(fiber.Map{"status": "success", "message": "User found", "data": user})
 }
+func getConnectedUserType(c *fiber.Ctx) (string, error) {
+	
+	token := c.Get("Authorization")
+	claims := jwt.MapClaims{}
+	_, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		
+		return []byte("mi_clave_secreta"), nil
+	})
 
-// CreateUser new user
-func CreateUser(c *fiber.Ctx) error {
-    type NewUser struct {
-        Username     string `json:"username"`
-        Email        string `json:"email"`
-        FirstName    string `json:"firstname"`
-        LastName     string `json:"lastname"`
-        UserTypeId   int
-        PercentCourse float64 `json:"percent_course"`
-        // Password string `json: "password"`
-    }
+	if err != nil {
+		return "", err
+	}
 
-    db := database.DB
-    user := new(model.User)
-    if err := c.BodyParser(user); err != nil {
-        return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Review your input", "data": err})
+	// Extraemos el tipo de usuario del token o de cualquier otro campo relevante
+	userType := claims["user_type"].(string)
 
-    }
-
-    hash, err := hashPassword(user.Password)
-    if err != nil {
-        return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Couldn't hash password", "data": err})
-
-    }
-
-    user.Password = hash
-
-    if err := db.Create(&user).Error; err != nil {
-        return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Couldn't create user", "data": err})
-    }
-
-    newUser := NewUser{
-        Email:         user.Email,
-        Username:      user.Username,
-        FirstName:     user.FirstName,
-        LastName:      user.LastName,
-        UserTypeId:   user.UserTypeId,
-        PercentCourse: user.PercentCourse,
-     }
-
-     return c.JSON(fiber.Map{"status": "success", "message": "Created user", "data": newUser})
+	return userType, nil
 }
+
+// CreateUser crea un nuevo usuario
+func CreateUser(c *fiber.Ctx) error {
+	db := database.DB
+	user := new(model.User)
+	if err := c.BodyParser(user); err != nil {
+		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Review your input", "data": err})
+	}
+
+	hash, err := hashPassword(user.Password)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Couldn't hash password", "data": err})
+	}
+
+	user.Password = hash
+
+	if err := db.Create(&user).Error; err != nil {
+		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Couldn't create user", "data": err})
+	}
+
+    // Crear inscripción
+    inscripcion := new(model.Inscripcion)
+    inscripcion.IDUser = int(user.ID)
+    inscripcion.Duser = *user
+    inscripcion.Complete = 0
+    inscripcion.PercentCourse = 0.0
+
+    if err := db.Create(&inscripcion).Error; err != nil {
+        return c.Status(500).JSON(fiber.Map{"status": "error", "message": "No se pudo crear la inscripción", "data": err})
+}
+
+	return c.Status(201).JSON(fiber.Map{"status": "success", "message": "Created user", "data": user})
+}
+
+
 
 // DeleteUser deletes a user by ID
 func DeleteUser(c *fiber.Ctx) error {
@@ -121,8 +131,6 @@ func DeleteUser(c *fiber.Ctx) error {
  db.Delete(&user)
  return c.JSON(fiber.Map{"status": "success", "message": "User successfully deleted", "data": nil})
 }
-
-
 
 // UpdateUser updates a user by ID
 func UpdateUser(c *fiber.Ctx) error {

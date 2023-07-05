@@ -1,0 +1,39 @@
+#login-form {
+    max-width: 350px;
+    padding: 40px 40px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,.075);
+  }
+  
+  #profile-img {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-control {
+    height: auto;
+    padding: 10px;
+  }
+  
+  .btn-block {
+    font-size: .9rem;
+  }
+  
+  #login-btn {
+      background-color: #007bff;
+      border-color: #007bff;
+      transition: all .3s ease-in-out;
+  }
+  
+  #login-btn:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+  }
+  

@@ -39,7 +39,7 @@ class Home extends Component {
     const home = homes.length > 0 ? homes[0] : {};
 
     return (
-      <div className="container">
+      <div className="container ">
         <div className="row mt-6">
           <div className="col-md-12 text-center">
             <img
@@ -48,8 +48,8 @@ class Home extends Component {
               alt="imagen de logo"
               style={{ maxWidth: "40%" }}
             />
-            <h1 className="display-4" style={{ color: '#1C1537' }}>{home.title}</h1>
-            <p style={{ color: '#1C1537' }}
+            <h1 className="display-4" style={{ color: '#10d66d0' }}>{home.title}</h1>
+            <p style={{ color: '#1C1537', marginTop: '-30px' }}
               className="lead"
               dangerouslySetInnerHTML={{ __html: home.content }}
             ></p>

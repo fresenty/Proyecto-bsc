@@ -65,7 +65,7 @@ class Noticias extends Component {
     }
 
     return (
-      <div className="container-fluid mt-4">
+      <div className="container-fluid mt-4 col-md-10 offset-md-1 ">
         <div className="row">
           {noticias.map((noticia) => (
             <div key={noticia.ID} className="col-md-4 mb-4">
@@ -82,7 +82,7 @@ class Noticias extends Component {
                   </p>
                   <button
                     className="btn btn-dark"
-                    style={{ backgroundColor: "#1C1537" }}
+                    style={{ backgroundColor: "#0d66d0" }}
                     onClick={() => this.handleNoticiaClick(noticia)}
                   >
                     Leer más

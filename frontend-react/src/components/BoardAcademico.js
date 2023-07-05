@@ -48,6 +48,8 @@ class BoardAcademico extends Component {
         currentIndex: nextIndex,
         progress: ((nextIndex + 1) / content.data.length) * 100,
       });
+      // Llama a la función updateIsComplete para actualizar el campo IsComplete en la base de datos
+      AcademicosService.updateIsComplete(nextContent.ID);
     }
   };
 

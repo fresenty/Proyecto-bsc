@@ -5,7 +5,7 @@ body {
 }
 
 .navbar {
- background-color: #1c1537;
+ background-color: #0d66d0;
  transition: background-color 0.3s ease;
 }
 
@@ -44,7 +44,7 @@ body {
 
 .table th {
  font-weight: bold;
- background-color: #1c1537;
+ background-color: #0d66d0;
  color: #fff;
  padding: 10px;
  transition: background-color 0.3s ease;
@@ -55,7 +55,7 @@ body {
 }
 
 .table tbody tr:hover td{
- background-color: #1C1537;
+ background-color: #0d66d0;
  color: #fff !important;
  transform: scale(1.0.1);
 }
