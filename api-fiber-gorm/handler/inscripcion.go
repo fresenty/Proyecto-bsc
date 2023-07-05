@@ -46,7 +46,7 @@ func GetInscripcionByID(c *fiber.Ctx) error {
 
 // GetInscripcionByID obtiene una inscripción por su ID
 func GetInscripcionByUserID(c *fiber.Ctx) error {
-	userID := GetUserIdOfToken(c)
+	userID := c.Params("id")
 	db := database.DB
 	var inscripcion model.Inscripcion
 	if err := db.Where("id_user = ?", userID).First(&inscripcion).Error; err != nil {

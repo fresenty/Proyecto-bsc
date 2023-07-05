@@ -58,7 +58,8 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         (response) => {
-          sessionStorage.setItem("userID",response.data.id)
+          console.log(response);
+          sessionStorage.setItem("userID", response.id);
           this.props.router.navigate("/profile");
           window.location.reload();
         },
@@ -125,16 +126,16 @@ class Login extends Component {
             </div>
 
             <div className="form-group">
-            <button
-              className="btn btn-primary btn-block"
-              disabled={this.state.loading}
-              style={{ backgroundColor: '#0d66d0', marginTop: '1rem' }}
-            >
-              {this.state.loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Iniciar sesión</span>
-            </button>
+              <button
+                className="btn btn-primary btn-block"
+                disabled={this.state.loading}
+                style={{ backgroundColor: "#0d66d0", marginTop: "1rem" }}
+              >
+                {this.state.loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Iniciar sesión</span>
+              </button>
             </div>
 
             {this.state.message && (

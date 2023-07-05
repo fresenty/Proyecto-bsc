@@ -7,6 +7,11 @@ const AcademicosService = {
     return axios.get(API_URL + "/academicos/");
   },
 
+  getInscripcionesbyUserID(){
+    return axios.get(API_URL + "/inscripciones/" + sessionStorage.getItem("userID"))
+    .then(response => {return response.data.data})
+  },
+
   updateIsComplete(userID) {
     return axios.put(API_URL + "/inscripciones/iscomplete/" + userID);
   },

@@ -11,13 +11,21 @@ class BoardAcademico extends Component {
       selectedContent: null,
       currentIndex: 0,
       progress: 0,
+      maximuss: 2,
     };
   }
 
   componentDidMount() {
     AcademicosService.getAllAcademicos().then(
       (response) => {
-        console.log("Response:", response);
+        AcademicosService.getInscripcionesbyUserID().then((data) => {
+          this.setState({
+            progress: data.percent_course,
+            maximuss: data.complete + 1,
+          });
+          response.data.data = response.data.data.slice(0, data.complete+1);
+        });
+
         this.setState({
           content: response.data,
         });
@@ -46,10 +54,12 @@ class BoardAcademico extends Component {
       this.setState({
         selectedContent: nextContent.Contenido,
         currentIndex: nextIndex,
-        progress: ((nextIndex + 1) / content.data.length) * 100,
       });
-      // Llama a la función updateIsComplete para actualizar el campo IsComplete en la base de datos
-      AcademicosService.updateIsComplete(nextContent.ID);
+
+      AcademicosService.updateIsComplete(sessionStorage.getItem("userID"));
+      AcademicosService.getInscripcionesbyUserID().then((data) =>
+        this.setState({ progress: data.percent_course })
+      );
     }
   };
 
@@ -106,7 +116,9 @@ class BoardAcademico extends Component {
                     aria-valuenow={progress}
                     aria-valuemin={0}
                     aria-valuemax={100}
-                  ></div>
+                  >
+                    {progress}%
+                  </div>
                 </div>
               </div>
             )}
