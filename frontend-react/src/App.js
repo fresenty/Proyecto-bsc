@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/Navbar-cards.css";
+import "./css/Navbar.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/Login";
 import Register from "./components/Register";
