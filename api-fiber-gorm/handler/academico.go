@@ -21,6 +21,32 @@ func CreateAcademico(c *fiber.Ctx) error {
 	if result.Error != nil {
 	return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Error al crear el academico", "data": nil})
 	}
+
+	// Update all inscripciones
+	var academicos []model.Academico
+	result = db.Find(&academicos)
+	if (result.Error != nil) {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find cursos academicos", "data": nil})
+	}
+	by := len(academicos)
+
+	var users []model.User
+	result = db.Where("user_type_id = ?", 1).Find(&users)
+	if (result.Error != nil) {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find users academicos", "data": nil})
+	}
+
+	for _, user := range users {
+		var ins model.Inscripcion
+		result = db.Where("id_user = ?", user.ID).First(&ins)
+		if (result.Error != nil) {
+			return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find inscripcion", "data": nil})
+		}
+		devided := ins.Complete
+		percent := float64(devided*100)/float64(by)
+		ins.PercentCourse = percent
+		db.Save(&ins)
+	}
    
 	return c.JSON(fiber.Map{"status": "success", "message": "Academico creado", "data": academico})
    }
@@ -30,7 +56,7 @@ func CreateAcademico(c *fiber.Ctx) error {
 func GetAllAcademicos(c *fiber.Ctx) error {
  db := database.DB
  var academicos []model.Academico
- result := db.Find(&academicos)
+ result := db.Order("id ASC").Find(&academicos)
 
  if result.Error != nil {
  return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se encontraron academicos", "data": nil})

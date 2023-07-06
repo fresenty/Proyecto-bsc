@@ -21,6 +21,32 @@ func CreateEmpresario(c *fiber.Ctx) error {
 	if result.Error != nil {
 		return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Error al crear el empresario", "data": nil})
 	}
+	
+	// Update all inscripciones
+	var empresarios []model.Empresario
+	result = db.Find(&empresarios)
+	if (result.Error != nil) {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find cursos empresarios", "data": nil})
+	}
+	by := len(empresarios)
+
+	var users []model.User
+	result = db.Where("user_type_id = ?", 2).Find(&users)
+	if (result.Error != nil) {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find users empresarios", "data": nil})
+	}
+
+	for _, user := range users {
+		var ins model.Inscripcion
+		result = db.Where("id_user = ?", user.ID).First(&ins)
+		if (result.Error != nil) {
+			return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find inscripcion", "data": nil})
+		}
+		devided := ins.Complete
+		percent := float64(devided*100)/float64(by)
+		ins.PercentCourse = percent
+		db.Save(&ins)
+	}
 
 	return c.JSON(fiber.Map{"status": "success", "message": "Empresario creado", "data": empresario})
 }
@@ -29,7 +55,7 @@ func CreateEmpresario(c *fiber.Ctx) error {
 func GetAllEmpresarios(c *fiber.Ctx) error {
 	db := database.DB
 	var empresarios []model.Empresario
-	result := db.Find(&empresarios)
+	result := db.Order("id ASC").Find(&empresarios)
 
 	if result.Error != nil {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se encontraron empresarios", "data": nil})

@@ -88,20 +88,19 @@ class App extends Component {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link
-                    to={"/home"}
-                    className="nav-link"
-                    
-                  >
+                  <Link to={"/home"} className="nav-link">
                     Inicio
                   </Link>
                 </li>
-
-                <li className="nav-item">
-                    <Link to={"/academico"} className="nav-link">
-                      Contenido
-                    </Link>
-                  </li>
+                {!showAcademicoBoard &&
+                  !showAdminBoard &&
+                  !showEmpresarioBoard && (
+                    <li className="nav-item">
+                      <Link to={"/academico"} className="nav-link">
+                        Curso
+                      </Link>
+                    </li>
+                  )}
 
                 {showAdminBoard && (
                   <li className="nav-item">
@@ -114,7 +113,7 @@ class App extends Component {
                 {showEmpresarioBoard && (
                   <li className="nav-item">
                     <Link to={"/empresario"} className="nav-link">
-                      Empresario Board
+                      Curso
                     </Link>
                   </li>
                 )}
@@ -122,7 +121,7 @@ class App extends Component {
                 {showAcademicoBoard && (
                   <li className="nav-item">
                     <Link to={"/academico"} className="nav-link">
-                      Academico Board
+                      Curso
                     </Link>
                   </li>
                 )}
@@ -134,12 +133,22 @@ class App extends Component {
                     </Link>
                   </li>
                 )}
-                <li className="nav-item">
-                  <Link to={"/academico-noticias"} className="nav-link">
-                    Noticias
-                  </Link>
-                </li>
-
+                {showEmpresarioBoard && (
+                  <li className="nav-item">
+                    <Link to={"/academico-noticias"} className="nav-link">
+                      Noticias
+                    </Link>
+                  </li>
+                )}
+                {!showAcademicoBoard &&
+                  !showAdminBoard &&
+                  !showEmpresarioBoard && (
+                    <li className="nav-item">
+                      <Link to={"/academico-noticias"} className="nav-link">
+                        Noticias
+                      </Link>
+                    </li>
+                  )}
                 {showAcademicoBoard && (
                   <li className="nav-item">
                     <Link to={"/criptomonedas"} className="nav-link">
@@ -147,12 +156,22 @@ class App extends Component {
                     </Link>
                   </li>
                 )}
-
-                <li className="nav-item">
-                  <Link to={"/criptomonedas"} className="nav-link">
-                    Criptomonedas
-                  </Link>
-                </li>
+                {showEmpresarioBoard && (
+                  <li className="nav-item">
+                    <Link to={"/criptomonedas"} className="nav-link">
+                      Criptomonedas
+                    </Link>
+                  </li>
+                )}
+                {!showAcademicoBoard &&
+                  !showAdminBoard &&
+                  !showEmpresarioBoard && (
+                    <li className="nav-item">
+                      <Link to={"/criptomonedas"} className="nav-link">
+                        Criptomonedas
+                      </Link>
+                    </li>
+                  )}
               </ul>
               {currentUser ? (
                 <ul className="navbar-nav ms-auto">

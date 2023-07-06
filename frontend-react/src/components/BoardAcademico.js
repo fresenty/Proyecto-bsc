@@ -11,19 +11,27 @@ class BoardAcademico extends Component {
       selectedContent: null,
       currentIndex: 0,
       progress: 0,
-      maximuss: 2,
+      back: false,
+      next: true,
+      finished: false,
     };
   }
 
-  componentDidMount() {
-    AcademicosService.getAllAcademicos().then(
+  async componentDidMount() {
+    await AcademicosService.getAllAcademicos().then(
       (response) => {
         AcademicosService.getInscripcionesbyUserID().then((data) => {
           this.setState({
             progress: data.percent_course,
-            maximuss: data.complete + 1,
           });
-          response.data.data = response.data.data.slice(0, data.complete+1);
+          if (data.complete < response.data.data.length) {
+            this.setState({ finished: false });
+          } else {
+            this.setState({ finished: true });
+          }
+          if (data.complete < response.data.data.length - 1){
+            response.data.data = response.data.data.slice(0, data.complete + 1);
+          }
         });
 
         this.setState({
@@ -42,25 +50,56 @@ class BoardAcademico extends Component {
     );
   }
 
+  setButton = (nextIndex) => {
+    if (nextIndex === this.state.content.data.length - 1) {
+      this.setState({next: true});
+    } else {
+      this.setState({next: false});
+    }
+    if (nextIndex === 0) {
+      this.setState({ back: true });
+    } else {
+      this.setState({ back: false });
+    }
+  }
+
   handleTitleClick = (content, index) => {
     this.setState({ selectedContent: content, currentIndex: index });
+    this.setButton(index);
   };
 
-  handleCompletedClick = () => {
+  handleBackClick = () => {
     const { content, currentIndex } = this.state;
-    if (currentIndex < content.data.length - 1) {
-      const nextIndex = currentIndex + 1;
+    if (currentIndex > 0) {
+      const nextIndex = currentIndex - 1;
       const nextContent = content.data[nextIndex];
+      this.setButton(nextIndex);
       this.setState({
         selectedContent: nextContent.Contenido,
         currentIndex: nextIndex,
       });
-
-      AcademicosService.updateIsComplete(sessionStorage.getItem("userID"));
-      AcademicosService.getInscripcionesbyUserID().then((data) =>
-        this.setState({ progress: data.percent_course })
-      );
     }
+  };
+
+  handleCompletedClick = async () => {
+    const index = this.state.currentIndex;
+    const dataLen = this.state.content.data.length -1;
+    if (index === dataLen) {
+      AcademicosService.updateIsComplete(sessionStorage.getItem("userID"));
+      await this.componentDidMount();
+    }
+    setTimeout(() => {
+      const { content, currentIndex } = this.state;
+      if (currentIndex < content.data.length - 1) {
+        const nextIndex = currentIndex + 1;
+        const nextContent = content.data[nextIndex];
+        this.setButton(nextIndex);
+        this.setState({
+          selectedContent: nextContent.Contenido,
+          currentIndex: nextIndex,
+        });
+      }
+    }, 300);
   };
 
   render() {
@@ -103,10 +142,18 @@ class BoardAcademico extends Component {
             {selectedContent && (
               <div className="mt-3">
                 <button
-                  className="btn btn-primary"
-                  onClick={this.handleCompletedClick}
+                  className="btn btn-primary col-md-6"
+                  onClick={this.handleBackClick}
+                  disabled={this.state.back}
                 >
-                  Completado
+                  Anterior
+                </button>
+                <button
+                  className="btn btn-primary col-md-6"
+                  onClick={this.handleCompletedClick}
+                  disabled={this.state.next && this.state.finished}
+                >
+                  {this.state.next ? "Completado" : "Siguiente"}
                 </button>
                 <div className="progress mt-3">
                   <div

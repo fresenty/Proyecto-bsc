@@ -32,14 +32,16 @@ const AuthService = {
 
   register(username, email, password, firstname, lastname, user_type_id) {
     console.log(user_type_id);
-    return axios.post(API_URL + "/users/", {
-      username,
-      email,
-      password,
-      firstname,
-      lastname,
-      userTypeId: user_type_id,
-    }).catch(err => console.log(err));
+    return axios
+      .post(API_URL + "/users/", {
+        username,
+        email,
+        password,
+        firstname,
+        lastname,
+        user_type_id,
+      })
+      .catch((err) => console.log(err));
   },
 
   getCurrentUser() {

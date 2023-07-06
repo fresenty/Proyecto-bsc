@@ -32,13 +32,13 @@ func ConnectDB() {
 	//DB.Create(&model.UserType{Role: "admin"})      // init database !import!
 	//DB.Create(&model.Noticia{})
 	//DB.Create(&model.Academico{})
-	DB.AutoMigrate(&model.Academico{})
+	//DB.AutoMigrate(&model.Academico{})
 	//DB.Create(&model.Empresario{})
-	DB.AutoMigrate(&model.Empresario{})
+	//DB.AutoMigrate(&model.Empresario{})
 	//DB.Create(&model.User{})
 	//DB.AutoMigrate(&model.User{})
 	//DB.Create(&model.Inscripcion{})
-	DB.AutoMigrate(&model.Inscripcion{})
+	//DB.AutoMigrate(&model.Inscripcion{})
 	//DB.Create(&model.HomeContent{})
 	//DB.AutoMigrate(&model.HomeContent{})
 
