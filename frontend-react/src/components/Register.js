@@ -13,7 +13,7 @@ const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
-        This field is required!
+        ¡Este campo es obligatorio!
       </div>
     );
   }
@@ -23,7 +23,7 @@ const email = (value) => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger" role="alert">
-        This is not a valid email.
+        Este correo no es valido.
       </div>
     );
   }
@@ -33,27 +33,27 @@ const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        El nombre de usuario debe tener entre 3 y 20 caracteres.
       </div>
     );
   }
 };
 
 const vfirstname = (value) => {
-  if (value.length < 2 || value.length > 20) {
+  if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The firstname must be between 3 and 20 characters.
+        El Nombre debe tener entre 3 y 20 caracteres.
       </div>
     );
   }
 };
 
 const vlastname = (value) => {
-  if (value.length < 2 || value.length > 20) {
+  if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The lastname must be between 3 and 20 characters.
+        Los apellidos debe tener entre 3 y 20 caracteres.
       </div>
     );
   }
@@ -63,7 +63,7 @@ const vpassword = (value) => {
   if (value.length < 8 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 8 and 40 characters.
+        La contraseña debe tener entre 8 y 40 caracteres.
       </div>
     );
   }
@@ -73,7 +73,7 @@ const vrole = (value) => {
   if (value.length < 2) {
     return (
       <div className="alert alert-danger" role="alert">
-        The role must be selected.
+        El rol debe ser seleccionado.
       </div>
     );
   }
@@ -220,12 +220,8 @@ export default class Register extends Component {
     return (
       <div className="col-md-6 mx-auto">
         <div className="card card-container">
-          <img
-            src={avatar}
-            alt="profile-img"
-            className="profile-img-card"
-          />
-  
+          <img src={avatar} alt="profile-img" className="profile-img-card" />
+
           {!this.state.successful && (
             <Form
               onSubmit={this.handleRegister}
@@ -244,9 +240,9 @@ export default class Register extends Component {
                   validations={[required, vusername]}
                 />
               </div>
-  
+
               <div className="form-group">
-                <label htmlFor="firstname">Primer nombre</label>
+                <label htmlFor="firstname">Nombres</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -256,9 +252,9 @@ export default class Register extends Component {
                   validations={[required, vfirstname]}
                 />
               </div>
-  
+
               <div className="form-group">
-                <label htmlFor="lastname">Primer Apellido</label>
+                <label htmlFor="lastname">Apellidos</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -268,9 +264,9 @@ export default class Register extends Component {
                   validations={[required, vlastname]}
                 />
               </div>
-  
+
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Correo</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -280,7 +276,7 @@ export default class Register extends Component {
                   validations={[required, email]}
                 />
               </div>
-  
+
               <div className="form-group">
                 <label htmlFor="password">Contraseña</label>
                 <Input
@@ -292,7 +288,7 @@ export default class Register extends Component {
                   validations={[required, vpassword]}
                 />
               </div>
-  
+
               <div className="form-group">
                 <label className="" htmlFor="group_name">
                   Rol de usuario
@@ -304,7 +300,7 @@ export default class Register extends Component {
                   className="form-control"
                 />
               </div>
-  
+
               <div className="form-group">
                 <button
                   className="btn btn-primary btn-block"
@@ -313,7 +309,7 @@ export default class Register extends Component {
                   Registrarse
                 </button>
               </div>
-  
+
               {this.state.message && (
                 <div className="form-group">
                   <div
@@ -328,7 +324,7 @@ export default class Register extends Component {
                   </div>
                 </div>
               )}
-  
+
               <CheckButton
                 style={{ display: "none" }}
                 ref={(c) => {
@@ -337,7 +333,7 @@ export default class Register extends Component {
               />
             </Form>
           )}
-  
+
           {this.state.successful && (
             <div className="alert alert-success" role="alert">
               Registro exitoso. Por favor, inicie sesión.
@@ -347,4 +343,4 @@ export default class Register extends Component {
       </div>
     );
   }
-}  
+}
