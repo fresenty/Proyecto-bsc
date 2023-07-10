@@ -65,6 +65,15 @@ func SetupRoutes(app *fiber.App) {
     empresarios.Put("/:id", handler.UpdateEmpresarioByID)
     empresarios.Delete("/:id", handler.DeleteEmpresario)
 
+	// Visitantes
+	visitantes := api.Group("/visitantes")
+	visitantes.Get("/", handler.GetAllVisitantes)
+	visitantes.Get("/:id", handler.GetVisitanteByID)
+	visitantes.Post("/", handler.CreateVisitante)
+	visitantes.Put("/:id", handler.UpdateVisitanteByID)
+	visitantes.Delete("/:id", handler.DeleteVisitante)
+
+
 	// Inscripciones
 	inscripciones := api.Group("/inscripciones")
 	inscripciones.Post("/", handler.CreateInscripcion)

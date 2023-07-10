@@ -33,6 +33,8 @@ func ConnectDB() {
 	//DB.Create(&model.Noticia{})
 	//DB.Create(&model.Academico{})
 	//DB.AutoMigrate(&model.Academico{})
+	//DB.AutoMigrate(&model.Visitante{})
+	//DB.Create(&model.Visitante{})
 	//DB.Create(&model.Empresario{})
 	//DB.AutoMigrate(&model.Empresario{})
 	//DB.Create(&model.User{})

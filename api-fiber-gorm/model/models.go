@@ -52,6 +52,14 @@ type Empresario struct {
 	Contenido string `gorm:"not null" json:"Contenido"`
    }
 
+// Visitante representa a un visitante en la base de datos
+type Visitante struct {
+	gorm.Model
+    ID        uint   `gorm:"primaryKey"`
+	Titulo    string `json:"titulo"`
+	Contenido string `json:"contenido"`
+}
+
 // Estructura de modelo para las noticias
 type Noticia struct {
 	ID        uint   `gorm:"primaryKey"`
