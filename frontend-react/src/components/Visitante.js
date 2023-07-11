@@ -71,9 +71,8 @@ class Visitante extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-3 order-md-2">
-          
             <div className="list-group">
-            <h5 className=" text-center">Contenido del Curso</h5>
+              <h5 className=" text-center">Contenido del Curso</h5>
               {content.data &&
                 content.data.map((visitante, index) => (
                   <button
@@ -128,6 +127,6 @@ class Visitante extends Component {
       </div>
     );
   }
-}  
+}
 
 export default Visitante;
