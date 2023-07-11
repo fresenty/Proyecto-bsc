@@ -15,6 +15,7 @@ import Visitante from "./components/Visitante";
 import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
+import CrudAcademico from "./components/CrudAcademico"
 
 class App extends Component {
   constructor(props) {
@@ -173,7 +174,15 @@ class App extends Component {
                       </Link>
                     </li>
                   )}
+                  {showAdminBoard && (
+                  <li className="nav-item">
+                    <Link to={"/CrudAcademico"} className="nav-link">
+                      Contenido Academico
+                    </Link>
+                  </li>
+                )}
               </ul>
+              
               {currentUser ? (
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
@@ -223,6 +232,7 @@ class App extends Component {
             <Route path="/academico-noticias" element={<Noticias />} />
             <Route path="/criptomonedas" element={<Criptomonedas />} />
             <Route path="/visitante" element={<Visitante />} />
+            <Route path="/CrudAcademico" element={<CrudAcademico />} />
           </Routes>
         </div>
 

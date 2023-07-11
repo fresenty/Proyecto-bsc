@@ -1,0 +1,9 @@
+/* Academicos.css */
+#editarModal .modal-dialog {
+    max-width: 75%; /* Cambia el ancho máximo del modal */
+  }
+  
+  #editarModal textarea[name="Contenido"] {
+    height: 100%; /* Cambia la altura del área de texto */
+  }
+  
