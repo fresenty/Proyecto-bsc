@@ -21,4 +21,5 @@ td.boton-lista:hover {
 
 .col-md-9 img {
   max-width: 100%;
+  content: center;
 }

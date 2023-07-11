@@ -14,6 +14,7 @@ class Boardempresario extends Component {
       back: false,
       next: true,
       finished: false,
+      loading: false,
     };
   }
 
@@ -52,20 +53,24 @@ class Boardempresario extends Component {
 
   setButton = (nextIndex) => {
     if (nextIndex === this.state.content.data.length - 1) {
-      this.setState({next: true});
+      this.setState({ next: true });
     } else {
-      this.setState({next: false});
+      this.setState({ next: false });
     }
     if (nextIndex === 0) {
       this.setState({ back: true });
     } else {
       this.setState({ back: false });
     }
-  }
+  };
 
   handleTitleClick = (content, index) => {
-    this.setState({ selectedContent: content, currentIndex: index });
-    this.setButton(index);
+    this.setState({ selectedContent: null, currentIndex: index, loading: true });
+    setTimeout(() => {
+      this.setState({ selectedContent: content, loading: false }, () => {
+        this.setButton(index);
+      });
+    }, 500);
   };
 
   handleBackClick = () => {
@@ -75,15 +80,19 @@ class Boardempresario extends Component {
       const nextContent = content.data[nextIndex];
       this.setButton(nextIndex);
       this.setState({
-        selectedContent: nextContent.Contenido,
+        selectedContent: null,
         currentIndex: nextIndex,
+        loading: true
       });
+      setTimeout(() => {
+        this.setState({ selectedContent: nextContent.Contenido, loading: false });
+      }, 500);
     }
   };
 
   handleCompletedClick = async () => {
     const index = this.state.currentIndex;
-    const dataLen = this.state.content.data.length -1;
+    const dataLen = this.state.content.data.length - 1;
     if (index === dataLen) {
       empresariosService.updateIsComplete(sessionStorage.getItem("userID"));
       await this.componentDidMount();
@@ -95,15 +104,19 @@ class Boardempresario extends Component {
         const nextContent = content.data[nextIndex];
         this.setButton(nextIndex);
         this.setState({
-          selectedContent: nextContent.Contenido,
+          selectedContent: null,
           currentIndex: nextIndex,
+          loading: true
         });
+        setTimeout(() => {
+          this.setState({ selectedContent: nextContent.Contenido, loading: false });
+        }, 500);
       }
     }, 300);
   };
 
   render() {
-    const { content, selectedContent, progress } = this.state;
+    const { content, selectedContent, progress, loading } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -133,28 +146,36 @@ class Boardempresario extends Component {
           </div>
           <div className="col-md-9 order-md-1">
             <section>
-              {selectedContent && (
-                <div
-                  dangerouslySetInnerHTML={{ __html: selectedContent }}
-                ></div>
+              {loading ? (
+                <div className="text-center">
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Cargando...</span>
+                  </div>
+                </div>
+              ) : (
+                selectedContent && (
+                  <div dangerouslySetInnerHTML={{ __html: selectedContent }}></div>
+                )
               )}
             </section>
             {selectedContent && (
               <div className="mt-3">
-                <button
-                  className="btn btn-primary col-md-6"
-                  onClick={this.handleBackClick}
-                  disabled={this.state.back}
-                >
-                  Anterior
-                </button>
-                <button
-                  className="btn btn-primary col-md-6"
-                  onClick={this.handleCompletedClick}
-                  disabled={this.state.next && this.state.finished}
-                >
-                  {this.state.next ? "Completado" : "Siguiente"}
-                </button>
+                <div className="d-flex">
+                  <button
+                    className="btn btn-primary flex-grow-1 me-2"
+                    onClick={this.handleBackClick}
+                    disabled={this.state.back}
+                  >
+                    Anterior
+                  </button>
+                  <button
+                    className="btn btn-primary flex-grow-1"
+                    onClick={this.handleCompletedClick}
+                    disabled={this.state.next && this.state.finished}
+                  >
+                    {this.state.next ? "Completado" : "Siguiente"}
+                  </button>
+                </div>
                 <div className="progress mt-3">
                   <div
                     className="progress-bar"
