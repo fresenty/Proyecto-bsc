@@ -63,10 +63,19 @@ export default class Profile extends Component {
               </div>
               <div className="card-body">
                 <p>
-                  <strong>Nombre:</strong> {content.firstname} {content.lastname}
+                  <strong>Nombre:</strong> {content.firstname}{" "}
+                  {content.lastname}
                 </p>
                 <p>
                   <strong>Email:</strong> {content.email}
+                </p>
+                <p>
+                  <strong>Tipo de usuario:</strong>{" "}
+                  {content.user_type_id === 1
+                    ? "Académico"
+                    : content.user_type_id === 2
+                    ? "Empresario"
+                    : "Administrador"}
                 </p>
               </div>
             </div>

@@ -11,6 +11,7 @@ import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
 import BoardAdmin from "./components/BoardAdmin";
 import BoardEmpresario from "./components/BoardEmpresario";
+import Visitante from "./components/Visitante";
 import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
@@ -96,7 +97,7 @@ class App extends Component {
                   !showAdminBoard &&
                   !showEmpresarioBoard && (
                     <li className="nav-item">
-                      <Link to={"/academico"} className="nav-link">
+                      <Link to={"/visitante"} className="nav-link">
                         Curso
                       </Link>
                     </li>
@@ -221,6 +222,7 @@ class App extends Component {
             <Route path="/academico" element={<BoardAcademico />} />
             <Route path="/academico-noticias" element={<Noticias />} />
             <Route path="/criptomonedas" element={<Criptomonedas />} />
+            <Route path="/visitante" element={<Visitante />} />
           </Routes>
         </div>
 
