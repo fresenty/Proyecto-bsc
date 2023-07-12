@@ -12,14 +12,14 @@ const AuthService = {
       })
       .then((response) => {
         if (response.data.accessToken) {
+
+          const token = response.data.accessToken;
+          console.log("Token JWT recibido:", token);
+ 
+          
           localStorage.setItem("user", JSON.stringify(response.data));
 
-          // Cookies.set('access', String(data.data.access), {
-          //   expires: 365
-          // });
-          // Cookies.set('refresh', String(data.data.refresh), {
-          //   expires: 365
-          // });
+          
         }
 
         return response.data;

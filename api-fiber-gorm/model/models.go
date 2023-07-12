@@ -15,6 +15,7 @@ type UserType struct {
 // Estructura de modelo para los usuarios
 type User struct {
     gorm.Model
+    ID           uint   `gorm:"primaryKey"`
     Username     string `gorm:"not null; uniqueIndex" json:"username"`
     Email        string `gorm:"not null; uniqueIndex" json:"email"`
     Password     string `gorm:"not null" json:"password"`

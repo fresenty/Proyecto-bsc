@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AcademicosService from "../services/academico.service";
+import EmpresariosService from "../services/empresario.service";
 import "../css/crud.css";
 
-class Academicos extends Component {
+class Empresarios extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      academicos: [],
-      editandoAcademico: null,
-      nuevoAcademico: {
+      empresarios: [],
+      editandoEmpresario: null,
+      nuevoEmpresario: {
         Titulo: "",
         Contenido: "",
       },
@@ -26,20 +26,20 @@ class Academicos extends Component {
   }
 
   componentDidMount() {
-    this.cargarAcademicos();
+    this.cargarEmpresarios();
   }
 
-  cargarAcademicos() {
-    AcademicosService.getAllAcademicos().then(
+  cargarEmpresarios() {
+    EmpresariosService.getAllempresarios().then(
       (response) => {
         this.setState({
-          academicos: response.data.data,
+          empresarios: response.data.data,
         });
       },
       (error) => {
-        console.log("Error al obtener academicos:", error);
+        console.log("Error al obtener empresarios:", error);
         this.setState({
-          academicos:
+          empresarios:
             (error.response && error.response.data) ||
             error.message ||
             error.toString(),
@@ -52,10 +52,10 @@ class Academicos extends Component {
     if (
       window.confirm("¿Estás seguro de que quieres eliminar este académico?")
     ) {
-      AcademicosService.deleteAcademico(id).then(
+      EmpresariosService.deleteempresario(id).then(
         () => {
-          this.cargarAcademicos();
-          toast.success("Se ha eliminado el académico con éxito");
+          this.cargarEmpresarios();
+          toast.success("Se ha eliminado el empresario con éxito");
         },
         (error) => {
           console.log("Error al eliminar académico:", error);
@@ -64,27 +64,27 @@ class Academicos extends Component {
     }
   }
 
-  handleEditarClick(academico) {
+  handleEditarClick(empresario) {
     this.setState({
-      editandoAcademico: { ...academico },
+      editandoEmpresario: { ...empresario },
     });
   }
 
   handleEditarSubmit(event) {
     event.preventDefault();
 
-    const { editandoAcademico } = this.state;
+    const { editandoEmpresario } = this.state;
 
-    AcademicosService.updateAcademicoByID(
-      editandoAcademico.ID,
-      editandoAcademico
+    EmpresariosService.updateempresarioByID(
+      editandoEmpresario.ID,
+      editandoEmpresario
     ).then(
       () => {
-        this.cargarAcademicos();
+        this.cargarEmpresarios();
         this.setState({
-          editandoAcademico: null,
+          editandoEmpresario: null,
         });
-        toast.success("Se ha actualizado el académico con éxito");
+        toast.success("Se ha actualizado el empresario con éxito");
       },
       (error) => {
         console.log("Error al actualizar académico:", error);
@@ -96,8 +96,8 @@ class Academicos extends Component {
     const { name, value } = event.target;
 
     this.setState((prevState) => ({
-      editandoAcademico: {
-        ...prevState.editandoAcademico,
+      editandoEmpresario: {
+        ...prevState.editandoEmpresario,
         [name]: value,
       },
     }));
@@ -106,18 +106,18 @@ class Academicos extends Component {
   handleNuevoSubmit(event) {
     event.preventDefault();
 
-    const { nuevoAcademico } = this.state;
+    const { nuevoEmpresario } = this.state;
 
-    AcademicosService.createAcademico(nuevoAcademico).then(
+    EmpresariosService.createempresario(nuevoEmpresario).then(
       () => {
-        this.cargarAcademicos();
+        this.cargarEmpresarios();
         this.setState({
-          nuevoAcademico: {
+          nuevoEmpresario: {
             Titulo: "",
             Contenido: "",
           },
         });
-        toast.success("Se ha creado el académico con éxito");
+        toast.success("Se ha creado el empresario con éxito");
       },
       (error) => {
         console.log("Error al crear académico:", error);
@@ -129,25 +129,25 @@ class Academicos extends Component {
     const { name, value } = event.target;
 
     this.setState((prevState) => ({
-      nuevoAcademico: {
-        ...prevState.nuevoAcademico,
+      nuevoEmpresario: {
+        ...prevState.nuevoEmpresario,
         [name]: value,
       },
     }));
   }
 
   render() {
-    let academicos = [];
+    let empresarios = [];
 
-    if (Array.isArray(this.state.academicos)) {
-      academicos = this.state.academicos;
+    if (Array.isArray(this.state.empresarios)) {
+      empresarios = this.state.empresarios;
     }
 
     return (
       <div className="container-fluid mt-4 col-md-10 offset-md-1 ">
         <div className="row mb-4">
           <div className="col-md-6">
-            <h2>Agregar nuevo curso (Académico)</h2>
+            <h2>Agregar nuevo curso (Empresario)</h2>
             <form onSubmit={this.handleNuevoSubmit}>
               <div className="form-group">
                 <label htmlFor="titulo">Título</label>
@@ -156,7 +156,7 @@ class Academicos extends Component {
                   className="form-control"
                   id="titulo"
                   name="Titulo"
-                  value={this.state.nuevoAcademico.Titulo}
+                  value={this.state.nuevoEmpresario.Titulo}
                   onChange={this.handleNuevoChange}
                 />
               </div>
@@ -167,7 +167,7 @@ class Academicos extends Component {
                   id="contenido"
                   name="Contenido"
                   rows="10"
-                  value={this.state.nuevoAcademico.Contenido}
+                  value={this.state.nuevoEmpresario.Contenido}
                   onChange={this.handleNuevoChange}
                 />
               </div>
@@ -188,21 +188,21 @@ class Academicos extends Component {
             </tr>
           </thead>
           <tbody>
-            {academicos.map((academico) => (
-              <tr key={academico.ID}>
-                <td>{academico.ID}</td>
-                <td>{academico.Titulo}</td>
-                <td>{academico.Contenido.substring(0, 100) + "..."}</td>
+            {empresarios.map((empresario) => (
+              <tr key={empresario.ID}>
+                <td>{empresario.ID}</td>
+                <td>{empresario.Titulo}</td>
+                <td>{empresario.Contenido.substring(0, 100) + "..."}</td>
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => this.handleEliminarClick(academico.ID)}
+                    onClick={() => this.handleEliminarClick(empresario.ID)}
                   >
                     Eliminar
                   </button>{" "}
                   <button
                     className="btn btn-warning"
-                    onClick={() => this.handleEditarClick(academico)}
+                    onClick={() => this.handleEditarClick(empresario)}
                   >
                     Editar
                   </button>
@@ -212,21 +212,21 @@ class Academicos extends Component {
           </tbody>
         </table>
 
-        {this.state.editandoAcademico && (
+        {this.state.editandoEmpresario && (
           <div className="modal-overlay">
             <div className="modal show d-block" id="editarModal">
               <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                   <form onSubmit={this.handleEditarSubmit}>
                     <div className="modal-header">
-                      <h5 className="modal-title">Editar Académico</h5>
+                      <h5 className="modal-title">Editar Empresario</h5>
                       <button
                         type="button"
                         className="close"
                         data-dismiss="modal"
                         aria-label="Close"
                         onClick={() =>
-                          this.setState({ editandoAcademico: null })
+                          this.setState({ editandoEmpresario: null })
                         }
                       >
                         <span aria-hidden="true">×</span>
@@ -240,7 +240,7 @@ class Academicos extends Component {
                           className="form-control"
                           id="titulo"
                           name="Titulo"
-                          value={this.state.editandoAcademico.Titulo}
+                          value={this.state.editandoEmpresario.Titulo}
                           onChange={this.handleEditarChange}
                         />
                       </div>
@@ -251,7 +251,7 @@ class Academicos extends Component {
                           id="contenido"
                           name="Contenido"
                           rows="10"
-                          value={this.state.editandoAcademico.Contenido}
+                          value={this.state.editandoEmpresario.Contenido}
                           onChange={this.handleEditarChange}
                         />
                       </div>
@@ -262,7 +262,7 @@ class Academicos extends Component {
                         className="btn btn-secondary"
                         data-dismiss="modal"
                         onClick={() =>
-                          this.setState({ editandoAcademico: null })
+                          this.setState({ editandoEmpresario: null })
                         }
                       >
                         Cancelar
@@ -284,4 +284,4 @@ class Academicos extends Component {
   }
 }
 
-export default Academicos;
+export default Empresarios;

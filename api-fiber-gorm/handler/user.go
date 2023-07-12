@@ -155,9 +155,12 @@ func UpdateUser(c *fiber.Ctx) error {
 func GetAllUsers(c *fiber.Ctx) error {
     db := database.DB
     var users []model.User
-    db.Find(&users)
-    return c.JSON(fiber.Map{"status": "success", "message": "All users", "data": users})
+    if err := db.Find(&users).Error; err != nil {
+        return c.Status(500).JSON(fiber.Map{"status": "error", "message": "Users could not be found", "data": nil})
+    }
+    return c.JSON(fiber.Map{"status": "success", "message": "Users found", "data": users})
 }
+
 
 // GetUserByID returns a user by ID
 func GetUserByID(c *fiber.Ctx) error {

@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AcademicosService from "../services/academico.service";
+import NoticiasService from "../services/noticias.service";
 import "../css/crud.css";
 
-class Academicos extends Component {
+class CrudNoticias extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      academicos: [],
-      editandoAcademico: null,
-      nuevoAcademico: {
-        Titulo: "",
-        Contenido: "",
+      noticias: [],
+      editandoNoticia: null,
+      nuevaNoticia: {
+        titulo: "",
+        contenido: "",
+        imagen: "",
       },
     };
 
@@ -26,68 +27,69 @@ class Academicos extends Component {
   }
 
   componentDidMount() {
-    this.cargarAcademicos();
+    this.cargarNoticias();
   }
 
-  cargarAcademicos() {
-    AcademicosService.getAllAcademicos().then(
+  cargarNoticias() {
+    NoticiasService.getAllNoticias().then(
       (response) => {
-        this.setState({
-          academicos: response.data.data,
-        });
+        const noticiasData = response.data.data;
+        console.log("Respuesta del servicio:", noticiasData);
+        if (Array.isArray(noticiasData)) {
+          this.setState({
+            noticias: noticiasData,
+          });
+        } else {
+          console.log("La respuesta no es un array de noticias:", noticiasData);
+          this.setState({
+            noticias: [],
+          });
+        }
       },
       (error) => {
-        console.log("Error al obtener academicos:", error);
+        console.log("Error al obtener noticias:", error);
         this.setState({
-          academicos:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString(),
+          noticias: [],
         });
       }
     );
   }
 
   handleEliminarClick(id) {
-    if (
-      window.confirm("¿Estás seguro de que quieres eliminar este académico?")
-    ) {
-      AcademicosService.deleteAcademico(id).then(
+    if (window.confirm("¿Estás seguro de que quieres eliminar esta noticia?")) {
+      NoticiasService.deleteNoticia(id).then(
         () => {
-          this.cargarAcademicos();
-          toast.success("Se ha eliminado el académico con éxito");
+          this.cargarNoticias();
+          toast.success("Se ha eliminado la noticia con éxito");
         },
         (error) => {
-          console.log("Error al eliminar académico:", error);
+          console.log("Error al eliminar noticia:", error);
         }
       );
     }
   }
 
-  handleEditarClick(academico) {
+  handleEditarClick(noticia) {
     this.setState({
-      editandoAcademico: { ...academico },
+      editandoNoticia: { ...noticia },
     });
   }
 
   handleEditarSubmit(event) {
     event.preventDefault();
 
-    const { editandoAcademico } = this.state;
+    const { editandoNoticia } = this.state;
 
-    AcademicosService.updateAcademicoByID(
-      editandoAcademico.ID,
-      editandoAcademico
-    ).then(
+    NoticiasService.updateNoticiaByID(editandoNoticia.ID, editandoNoticia).then(
       () => {
-        this.cargarAcademicos();
+        this.cargarNoticias();
         this.setState({
-          editandoAcademico: null,
+          editandoNoticia: null,
         });
-        toast.success("Se ha actualizado el académico con éxito");
+        toast.success("Se ha actualizado la noticia con éxito");
       },
       (error) => {
-        console.log("Error al actualizar académico:", error);
+        console.log("Error al actualizar noticia:", error);
       }
     );
   }
@@ -96,8 +98,8 @@ class Academicos extends Component {
     const { name, value } = event.target;
 
     this.setState((prevState) => ({
-      editandoAcademico: {
-        ...prevState.editandoAcademico,
+      editandoNoticia: {
+        ...prevState.editandoNoticia,
         [name]: value,
       },
     }));
@@ -106,21 +108,22 @@ class Academicos extends Component {
   handleNuevoSubmit(event) {
     event.preventDefault();
 
-    const { nuevoAcademico } = this.state;
+    const { nuevaNoticia } = this.state;
 
-    AcademicosService.createAcademico(nuevoAcademico).then(
+    NoticiasService.createNoticia(nuevaNoticia).then(
       () => {
-        this.cargarAcademicos();
+        this.cargarNoticias();
         this.setState({
-          nuevoAcademico: {
-            Titulo: "",
-            Contenido: "",
+          nuevaNoticia: {
+            titulo: "",
+            contenido: "",
+            imagen: "",
           },
         });
-        toast.success("Se ha creado el académico con éxito");
+        toast.success("Se ha creado la noticia con éxito");
       },
       (error) => {
-        console.log("Error al crear académico:", error);
+        console.log("Error al crear noticia:", error);
       }
     );
   }
@@ -129,25 +132,21 @@ class Academicos extends Component {
     const { name, value } = event.target;
 
     this.setState((prevState) => ({
-      nuevoAcademico: {
-        ...prevState.nuevoAcademico,
+      nuevaNoticia: {
+        ...prevState.nuevaNoticia,
         [name]: value,
       },
     }));
   }
 
   render() {
-    let academicos = [];
-
-    if (Array.isArray(this.state.academicos)) {
-      academicos = this.state.academicos;
-    }
+    const { noticias, editandoNoticia, nuevaNoticia } = this.state;
 
     return (
       <div className="container-fluid mt-4 col-md-10 offset-md-1 ">
         <div className="row mb-4">
           <div className="col-md-6">
-            <h2>Agregar nuevo curso (Académico)</h2>
+            <h2>Agregar nueva noticia</h2>
             <form onSubmit={this.handleNuevoSubmit}>
               <div className="form-group">
                 <label htmlFor="titulo">Título</label>
@@ -155,8 +154,8 @@ class Academicos extends Component {
                   type="text"
                   className="form-control"
                   id="titulo"
-                  name="Titulo"
-                  value={this.state.nuevoAcademico.Titulo}
+                  name="titulo"
+                  value={nuevaNoticia.titulo}
                   onChange={this.handleNuevoChange}
                 />
               </div>
@@ -165,9 +164,20 @@ class Academicos extends Component {
                 <textarea
                   className="form-control"
                   id="contenido"
-                  name="Contenido"
+                  name="contenido"
                   rows="10"
-                  value={this.state.nuevoAcademico.Contenido}
+                  value={nuevaNoticia.contenido}
+                  onChange={this.handleNuevoChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imagen">Imagen</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="imagen"
+                  name="imagen"
+                  value={nuevaNoticia.imagen}
                   onChange={this.handleNuevoChange}
                 />
               </div>
@@ -184,25 +194,28 @@ class Academicos extends Component {
               <th scope="col">ID</th>
               <th scope="col">Título</th>
               <th scope="col">Contenido</th>
+              <th scope="col">Imagen</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {academicos.map((academico) => (
-              <tr key={academico.ID}>
-                <td>{academico.ID}</td>
-                <td>{academico.Titulo}</td>
-                <td>{academico.Contenido.substring(0, 100) + "..."}</td>
+            {noticias.map((noticia) => (
+              <tr key={noticia.ID}>
+                <td>{noticia.ID}</td>
+                <td>{noticia.Titulo}</td>
+                <td>{noticia.Contenido.substring(0, 100) + "..."}</td>
+                <td>{noticia.Imagen}</td>{" "}
+                {/* Mostrar la cadena de texto de la imagen */}
                 <td>
                   <button
                     className="btn btn-danger"
-                    onClick={() => this.handleEliminarClick(academico.ID)}
+                    onClick={() => this.handleEliminarClick(noticia.ID)}
                   >
                     Eliminar
                   </button>{" "}
                   <button
                     className="btn btn-warning"
-                    onClick={() => this.handleEditarClick(academico)}
+                    onClick={() => this.handleEditarClick(noticia)}
                   >
                     Editar
                   </button>
@@ -212,22 +225,20 @@ class Academicos extends Component {
           </tbody>
         </table>
 
-        {this.state.editandoAcademico && (
+        {editandoNoticia && (
           <div className="modal-overlay">
             <div className="modal show d-block" id="editarModal">
               <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                   <form onSubmit={this.handleEditarSubmit}>
                     <div className="modal-header">
-                      <h5 className="modal-title">Editar Académico</h5>
+                      <h5 className="modal-title">Editar Noticia</h5>
                       <button
                         type="button"
                         className="close"
                         data-dismiss="modal"
                         aria-label="Close"
-                        onClick={() =>
-                          this.setState({ editandoAcademico: null })
-                        }
+                        onClick={() => this.setState({ editandoNoticia: null })}
                       >
                         <span aria-hidden="true">×</span>
                       </button>
@@ -239,8 +250,8 @@ class Academicos extends Component {
                           type="text"
                           className="form-control"
                           id="titulo"
-                          name="Titulo"
-                          value={this.state.editandoAcademico.Titulo}
+                          name="Titulo" // Corregir a "Titulo"
+                          value={editandoNoticia.Titulo} // Corregir a "Titulo"
                           onChange={this.handleEditarChange}
                         />
                       </div>
@@ -249,21 +260,20 @@ class Academicos extends Component {
                         <textarea
                           className="form-control"
                           id="contenido"
-                          name="Contenido"
+                          name="Contenido" // Corregir a "Contenido"
                           rows="10"
-                          value={this.state.editandoAcademico.Contenido}
+                          value={editandoNoticia.Contenido} // Corregir a "Contenido"
                           onChange={this.handleEditarChange}
                         />
                       </div>
                     </div>
+
                     <div className="modal-footer">
                       <button
                         type="button"
                         className="btn btn-secondary"
                         data-dismiss="modal"
-                        onClick={() =>
-                          this.setState({ editandoAcademico: null })
-                        }
+                        onClick={() => this.setState({ editandoNoticia: null })}
                       >
                         Cancelar
                       </button>
@@ -284,4 +294,4 @@ class Academicos extends Component {
   }
 }
 
-export default Academicos;
+export default CrudNoticias;

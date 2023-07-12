@@ -9,13 +9,16 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import AuthVerify from "./common/auth-verify";
 import EventBus from "./common/EventBus";
-import BoardAdmin from "./components/BoardAdmin";
 import BoardEmpresario from "./components/BoardEmpresario";
 import Visitante from "./components/Visitante";
 import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
 import CrudAcademico from "./components/CrudAcademico"
+import CrudEmpresario from "./components/CrudEmpresario"
+import CrudVisitante from "./components/CrudVisitante"
+import CrudUsuario from "./components/CrudUsuario";
+import CrudNoticias from "./components/CrudNoticias";
 
 class App extends Component {
   constructor(props) {
@@ -106,11 +109,12 @@ class App extends Component {
 
                 {showAdminBoard && (
                   <li className="nav-item">
-                    <Link to={"/admin"} className="nav-link">
-                      Admin Board
+                    <Link to={"/CrudEmpresario"} className="nav-link">
+                      Empresario
                     </Link>
                   </li>
                 )}
+                
 
                 {showEmpresarioBoard && (
                   <li className="nav-item">
@@ -177,11 +181,33 @@ class App extends Component {
                   {showAdminBoard && (
                   <li className="nav-item">
                     <Link to={"/CrudAcademico"} className="nav-link">
-                      Contenido Academico
+                      Academico
+                    </Link>
+                  </li>
+                )}
+                {showAdminBoard && (
+                  <li className="nav-item">
+                    <Link to={"/CrudVisitante"} className="nav-link">
+                      Visitante
+                    </Link>
+                  </li>
+                )}
+                {showAdminBoard && (
+                  <li className="nav-item">
+                    <Link to={"/CrudUsuario"} className="nav-link">
+                      Usuarios
+                    </Link>
+                  </li>
+                )}
+                {showAdminBoard && (
+                  <li className="nav-item">
+                    <Link to={"/CrudNoticias"} className="nav-link">
+                      Noticias
                     </Link>
                   </li>
                 )}
               </ul>
+              
               
               {currentUser ? (
                 <ul className="navbar-nav ms-auto">
@@ -226,13 +252,16 @@ class App extends Component {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/admin" element={<BoardAdmin />} />
+            <Route path="/CrudEmpresario" element={<CrudEmpresario />} />
             <Route path="/empresario" element={<BoardEmpresario />} />
             <Route path="/academico" element={<BoardAcademico />} />
             <Route path="/academico-noticias" element={<Noticias />} />
             <Route path="/criptomonedas" element={<Criptomonedas />} />
             <Route path="/visitante" element={<Visitante />} />
             <Route path="/CrudAcademico" element={<CrudAcademico />} />
+            <Route path="/CrudUsuario" element={<CrudUsuario />} />
+            <Route path="/CrudVisitante" element={<CrudVisitante />} />
+            <Route path="/CrudNoticias" element={<CrudNoticias />} />
           </Routes>
         </div>
 

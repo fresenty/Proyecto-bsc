@@ -7,3 +7,15 @@
     height: 100%; /* Cambia la altura del área de texto */
   }
   
+  .table {
+    table-layout: fixed;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ffffff;
+  }
+  
