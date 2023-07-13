@@ -13,7 +13,13 @@ const UserService = {
   },
 
   createUsuario(usuario) {
-    return axios.post(API_URL + '/users/', usuario);
+    // Agregar el tipo de usuario al objeto usuario
+    const usuarioConTipo = {
+      ...usuario,
+      usertypeid: obtenerTipoUsuarioId(usuario.usertype),
+    };
+
+    return axios.post(API_URL + '/users/', usuarioConTipo);
   },
 
   updateUsuarioByID(id, usuario) {
@@ -56,5 +62,19 @@ const UserService = {
     return axios.delete(API_URL + '/home/' + id);
   }
 };
+
+// Función para obtener el ID del tipo de usuario basado en el nombre
+function obtenerTipoUsuarioId(tipoUsuario) {
+  switch (tipoUsuario) {
+    case "academico":
+      return 1;
+    case "empresario":
+      return 2;
+    case "administrador":
+      return 3;
+    default:
+      return 1;
+  }
+}
 
 export default UserService;

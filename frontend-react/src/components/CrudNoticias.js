@@ -204,8 +204,7 @@ class CrudNoticias extends Component {
                 <td>{noticia.ID}</td>
                 <td>{noticia.Titulo}</td>
                 <td>{noticia.Contenido.substring(0, 100) + "..."}</td>
-                <td>{noticia.Imagen}</td>{" "}
-                {/* Mostrar la cadena de texto de la imagen */}
+                <td>{noticia.Imagen}</td>
                 <td>
                   <button
                     className="btn btn-danger"
@@ -250,8 +249,8 @@ class CrudNoticias extends Component {
                           type="text"
                           className="form-control"
                           id="titulo"
-                          name="Titulo" // Corregir a "Titulo"
-                          value={editandoNoticia.Titulo} // Corregir a "Titulo"
+                          name="Titulo"
+                          value={editandoNoticia.Titulo}
                           onChange={this.handleEditarChange}
                         />
                       </div>
@@ -260,9 +259,20 @@ class CrudNoticias extends Component {
                         <textarea
                           className="form-control"
                           id="contenido"
-                          name="Contenido" // Corregir a "Contenido"
+                          name="Contenido"
                           rows="10"
-                          value={editandoNoticia.Contenido} // Corregir a "Contenido"
+                          value={editandoNoticia.Contenido}
+                          onChange={this.handleEditarChange}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="imagen">Imagen</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="imagen"
+                          name="Imagen"
+                          value={editandoNoticia.Imagen}
                           onChange={this.handleEditarChange}
                         />
                       </div>

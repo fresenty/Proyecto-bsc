@@ -7,10 +7,15 @@ const empresariosService = {
     return axios.get(API_URL + "/empresarios/");
   },
 
-  getInscripcionesbyUserID(){
+  getInscripcionesbyUserID() {
     return axios.get(API_URL + "/inscripciones/" + sessionStorage.getItem("userID"))
-    .then(response => {return response.data.data})
+      .then(response => {
+        const inscripciones = response.data;
+        console.log(inscripciones); // Imprime los datos de las inscripciones en la consola
+        return inscripciones;
+      });
   },
+  
 
   updateIsComplete(userID) {
     return axios.put(API_URL + "/inscripciones/iscomplete/" + userID);

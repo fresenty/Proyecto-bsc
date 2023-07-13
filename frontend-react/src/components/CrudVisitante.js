@@ -147,7 +147,7 @@ class CrudVisitante extends Component {
       <div className="container-fluid mt-4 col-md-10 offset-md-1 ">
         <div className="row mb-4">
           <div className="col-md-6">
-            <h2>Agregar nuevo visitante</h2>
+            <h2>Agregar nuevo curso "Visitante"</h2>
             <form onSubmit={this.handleNuevoSubmit}>
               <div className="form-group">
                 <label htmlFor="titulo">Título</label>

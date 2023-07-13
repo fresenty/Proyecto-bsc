@@ -38,7 +38,7 @@ func ConnectDB() {
 	//DB.Create(&model.Empresario{})
 	//DB.AutoMigrate(&model.Empresario{})
 	//DB.Create(&model.User{})
-	//DB.AutoMigrate(&model.User{})
+	DB.AutoMigrate(&model.User{})
 	//DB.Create(&model.Inscripcion{})
 	//DB.AutoMigrate(&model.Inscripcion{})
 	//DB.Create(&model.HomeContent{})
