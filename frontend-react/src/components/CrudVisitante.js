@@ -144,40 +144,7 @@ class CrudVisitante extends Component {
     }
 
     return (
-      <div className="container-fluid mt-4 col-md-10 offset-md-1 ">
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <h2>Agregar nuevo curso "Visitante"</h2>
-            <form onSubmit={this.handleNuevoSubmit}>
-              <div className="form-group">
-                <label htmlFor="titulo">Título</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="titulo"
-                  name="Titulo"
-                  value={this.state.nuevoVisitante.Titulo}
-                  onChange={this.handleNuevoChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="contenido">Contenido</label>
-                <textarea
-                  className="form-control"
-                  id="contenido"
-                  name="Contenido"
-                  rows="10"
-                  value={this.state.nuevoVisitante.Contenido}
-                  onChange={this.handleNuevoChange}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Agregar
-              </button>
-            </form>
-          </div>
-        </div>
-
+      <div className="container-fluid mt-4 col-md-12">
         <table className="table table-striped">
           <thead>
             <tr>
@@ -192,7 +159,7 @@ class CrudVisitante extends Component {
               <tr key={visitante.ID}>
                 <td>{visitante.ID}</td>
                 <td>{visitante.Titulo}</td>
-                <td>{visitante.Contenido.substring(0, 100) + "..."}</td>
+                <td className="text-break">{visitante.Contenido.substring(0, 100) + "..."}</td>
                 <td>
                   <button
                     className="btn btn-danger"
