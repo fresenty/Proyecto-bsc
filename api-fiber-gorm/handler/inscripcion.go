@@ -107,14 +107,14 @@ func UpdateIsComplete(c *fiber.Ctx) error {
 
 	if (user.UserTypeId==1) {
 		var academicos []model.Academico
-		result := db.Find(&academicos)
+		result := db.Where("deleted_at IS NULL").Find(&academicos)
 		if (result.Error != nil) {
 			return c.Status(404).JSON(fiber.Map{"status": "error", "message": "This user is not academico", "data": nil})
 		}
 		by = len(academicos)
 	} else if (user.UserTypeId==2) {
 		var empresarios []model.Empresario
-		result := db.Find(&empresarios)
+		result := db.Where("deleted_at IS NULL").Find(&empresarios)
 		if (result.Error != nil) {
 			return c.Status(404).JSON(fiber.Map{"status": "error", "message": "This user is not empresario", "data": nil})
 		}

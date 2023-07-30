@@ -24,21 +24,21 @@ func CreateEmpresario(c *fiber.Ctx) error {
 	
 	// Update all inscripciones
 	var empresarios []model.Empresario
-	result = db.Find(&empresarios)
+	result = db.Where("deleted_at IS NULL").Find(&empresarios)
 	if (result.Error != nil) {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find cursos empresarios", "data": nil})
 	}
 	by := len(empresarios)
 
 	var users []model.User
-	result = db.Where("user_type_id = ?", 2).Find(&users)
+	result = db.Where("deleted_at IS NULL").Where("user_type_id = ?", 2).Find(&users)
 	if (result.Error != nil) {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find users empresarios", "data": nil})
 	}
 
 	for _, user := range users {
 		var ins model.Inscripcion
-		result = db.Where("id_user = ?", user.ID).First(&ins)
+		result = db.Where("deleted_at IS NULL").Where("id_user = ?", user.ID).First(&ins)
 		if (result.Error != nil) {
 			return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find inscripcion", "data": nil})
 		}
@@ -55,7 +55,7 @@ func CreateEmpresario(c *fiber.Ctx) error {
 func GetAllEmpresarios(c *fiber.Ctx) error {
 	db := database.DB
 	var empresarios []model.Empresario
-	result := db.Order("id ASC").Find(&empresarios)
+	result := db.Order("id ASC").Where("deleted_at IS NULL").Find(&empresarios)
 
 	if result.Error != nil {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se encontraron empresarios", "data": nil})
@@ -138,6 +138,34 @@ func DeleteEmpresario(c *fiber.Ctx) error {
 
 	// Eliminar empresario
 	db.Delete(&empresario)
+
+	// Actualizar inscripciones empresarios
+	var inscripciones []model.Inscripcion
+	query := "SELECT * FROM \"inscripcions\" as \"i\" JOIN \"users\" as \"u\" ON \"i\".\"id_user\" = \"u\".\"id\" WHERE \"i\".\"deleted_at\" IS NULL AND \"u\".\"user_type_id\" = 2"
+	
+	if result := db.Raw(query).Scan(&inscripciones); result.Error != nil {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Usuarios empresarioa no encontrados", "data": nil})
+	}
+
+	var empresarios []model.Empresario
+	
+	if result := db.Where("deleted_at IS NULL").Find(&empresarios); result.Error != nil {
+		print("ha ha")
+		//return c.Status(404).JSON(fiber.Map{"status": "error", "message": "This user is not academico", "data": nil})
+	}
+	by := len(empresarios)
+	for _, inscripcion := range inscripciones {
+		if (inscripcion.Complete > 1) {
+			inscripcion.Complete -= 1
+			if result := db.Save(&inscripcion); result.Error != nil {
+				return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se actualizó inscripción", "data": nil})
+			}
+		}
+		devided := inscripcion.Complete
+		total := float64(devided*100/by)
+	
+		inscripcion.PercentCourse = total
+	}
 
 	return c.JSON(fiber.Map{"status": "success", "message": "Empresario eliminado correctamente", "data": nil})
 }

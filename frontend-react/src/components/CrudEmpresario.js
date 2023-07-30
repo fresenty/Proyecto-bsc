@@ -50,7 +50,7 @@ class Empresarios extends Component {
 
   handleEliminarClick(id) {
     if (
-      window.confirm("¿Estás seguro de que quieres eliminar este académico?")
+      window.confirm("¿Estás seguro de que quieres eliminar este empresario?")
     ) {
       EmpresariosService.deleteempresario(id).then(
         () => {
@@ -58,7 +58,7 @@ class Empresarios extends Component {
           toast.success("Se ha eliminado el empresario con éxito");
         },
         (error) => {
-          console.log("Error al eliminar académico:", error);
+          console.log("Error al eliminar empresario:", error);
         }
       );
     }
@@ -87,7 +87,7 @@ class Empresarios extends Component {
         toast.success("Se ha actualizado el empresario con éxito");
       },
       (error) => {
-        console.log("Error al actualizar académico:", error);
+        console.log("Error al actualizar empresario:", error);
       }
     );
   }
@@ -120,7 +120,7 @@ class Empresarios extends Component {
         toast.success("Se ha creado el empresario con éxito");
       },
       (error) => {
-        console.log("Error al crear académico:", error);
+        console.log("Error al crear empresario:", error);
       }
     );
   }

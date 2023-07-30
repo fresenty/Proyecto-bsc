@@ -198,10 +198,12 @@ export default class Register extends Component {
     RoleService.getRoles().then(
       (response) => {
         console.log(response);
-        console.log(response.data.data);
-        this.setState({
-          roles: response.data.data,
-        });
+        if (response.data && response.data.data) {
+          console.log(response.data.data);
+          this.setState({
+            roles: response.data.data,
+          });
+        }
       },
       (error) => {
         this.setState({
@@ -214,6 +216,7 @@ export default class Register extends Component {
         });
       }
     );
+    
   }
 
   render() {

@@ -34,7 +34,7 @@ func validToken(t *jwt.Token, id string) bool {
 func validUser(id string, p string) bool {
     db := database.DB
     var user model.User
-    db.First(&user, id)
+    db.Where("deleted_at IS NULL").First(&user, id)
     if user.Username == "" {
         return false
     }

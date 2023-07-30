@@ -24,14 +24,14 @@ func CreateAcademico(c *fiber.Ctx) error {
 
 	// Update all inscripciones
 	var academicos []model.Academico
-	result = db.Find(&academicos)
+	result = db.Where("deleted_at IS NULL").Find(&academicos)
 	if (result.Error != nil) {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find cursos academicos", "data": nil})
 	}
 	by := len(academicos)
 
 	var users []model.User
-	result = db.Where("user_type_id = ?", 1).Find(&users)
+	result = db.Where("deleted_at IS NULL").Where("user_type_id = ?", 1).Find(&users)
 	if (result.Error != nil) {
 		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Can't find users academicos", "data": nil})
 	}
@@ -56,7 +56,7 @@ func CreateAcademico(c *fiber.Ctx) error {
 func GetAllAcademicos(c *fiber.Ctx) error {
  db := database.DB
  var academicos []model.Academico
- result := db.Order("id ASC").Find(&academicos)
+ result := db.Order("id ASC").Where("deleted_at IS NULL").Find(&academicos)
 
  if result.Error != nil {
  return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se encontraron academicos", "data": nil})
@@ -143,6 +143,34 @@ func DeleteAcademico(c *fiber.Ctx) error {
    
 	// Eliminar academico
 	db.Delete(&academico)
+
+	// Actualizar inscripciones académicas
+	var inscripciones []model.Inscripcion
+	query := "SELECT * FROM \"inscripcions\" as \"i\" JOIN \"users\" as \"u\" ON \"i\".\"id_user\" = \"u\".\"id\" WHERE \"i\".\"deleted_at\" IS NULL AND \"u\".\"user_type_id\" = 1"
+	
+	if result := db.Raw(query).Scan(&inscripciones); result.Error != nil {
+		return c.Status(404).JSON(fiber.Map{"status": "error", "message": "Usuarios academicos no encontrados", "data": nil})
+	}
+
+	var academicos []model.Academico
+	
+	if result := db.Where("deleted_at IS NULL").Find(&academicos); result.Error != nil {
+		print("ha ha")
+		//return c.Status(404).JSON(fiber.Map{"status": "error", "message": "This user is not academico", "data": nil})
+	}
+	by := len(academicos)
+	for _, inscripcion := range inscripciones {
+		if (inscripcion.Complete > 1) {
+			inscripcion.Complete -= 1
+			if result := db.Save(&inscripcion); result.Error != nil {
+				return c.Status(404).JSON(fiber.Map{"status": "error", "message": "No se actualizó inscripción", "data": nil})
+			}
+		}
+		devided := inscripcion.Complete
+		total := float64(devided*100/by)
+	
+		inscripcion.PercentCourse = total
+	}
    
 	return c.JSON(fiber.Map{"status": "success", "message": "Academico eliminado correctamente", "data": nil})
    }
