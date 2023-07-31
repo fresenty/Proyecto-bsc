@@ -50,7 +50,7 @@ class Empresarios extends Component {
         });
       },
       (error) => {
-        if (error.response.status == 401) {
+        if (error.response.status === 401) {
           return redirect("/");
         }
         console.log("Error al obtener empresarios:", error);

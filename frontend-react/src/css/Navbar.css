@@ -12,8 +12,6 @@
   background-color: #0d66d0;
   transition: all 0.5s ease;
   font-weight: bold;
-}
-.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -24,9 +22,11 @@
   z-index: 999; /* Agrega un z-index alto para asegurar que el navbar esté en la capa superior */
 }
 
-/* Agrega un z-index más bajo a los elementos que deben estar detrás del navbar */
-.other-element {
-  z-index: 1;
+/* Estilos para el icono del navbar */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='%23000'%3E%3Cpath stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  width: 24px;
+  height: 24px;
 }
 
 .navbar:hover {
@@ -47,3 +47,12 @@
 .nav-link:focus {
   color: #000;
 }
+
+/* Ajuste del padding superior del navbar en pantallas pequeñas */
+@media (max-width: 767px) {
+  .navbar-nav .nav-link {
+    padding: 10px 15px; /* Aumenta el padding horizontal para crear más espacio entre los elementos */
+    margin: 0 5px; /* Agrega un margen horizontal para crear más espacio entre los elementos */
+  }
+}
+

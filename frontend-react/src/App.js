@@ -15,9 +15,7 @@ import Visitante from "./components/Visitante";
 import BoardAcademico from "./components/BoardAcademico";
 import Noticias from "./components/Noticias";
 import Criptomonedas from "./components/Coins";
-import CrudAcademico from "./components/CrudAcademico"
-import CrudEmpresario from "./components/CrudEmpresario"
-import CrudVisitante from "./components/CrudVisitante"
+import CrudEmpresario from "./components/CrudEmpresario";
 import CrudUsuario from "./components/CrudUsuario";
 import CrudNoticias from "./components/CrudNoticias";
 
@@ -31,6 +29,7 @@ class App extends Component {
       showEmpresarioBoard: false,
       showAcademicoBoard: false,
       currentUser: undefined,
+      navbarCollapsed: true,
     };
   }
 
@@ -71,6 +70,7 @@ class App extends Component {
       showAdminBoard,
       showAcademicoBoard,
       showEmpresarioBoard,
+      navbarCollapsed,
     } = this.state;
 
     return (
@@ -83,15 +83,19 @@ class App extends Component {
             <button
               className="navbar-toggler"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+              onClick={() =>
+                this.setState((prevState) => ({
+                  navbarCollapsed: !prevState.navbarCollapsed,
+                }))
+              }
             >
               <span className="navbar-toggler-icon "></span>
             </button>
-            <div className="collapse navbar-collapse" id="navbarNav">
+            <div
+              className={`collapse navbar-collapse ${
+                navbarCollapsed ? "" : "show"
+              }`}
+            >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <Link to={"/home"} className="nav-link">
@@ -111,11 +115,10 @@ class App extends Component {
                 {showAdminBoard && (
                   <li className="nav-item">
                     <Link to={"/CrudEmpresario"} className="nav-link">
-                      Empresario
+                      Cursos
                     </Link>
                   </li>
                 )}
-                
 
                 {showEmpresarioBoard && (
                   <li className="nav-item">
@@ -179,20 +182,7 @@ class App extends Component {
                       </Link>
                     </li>
                   )}
-                  {showAdminBoard && (
-                  <li className="nav-item">
-                    <Link to={"/CrudAcademico"} className="nav-link">
-                      Academico
-                    </Link>
-                  </li>
-                )}
-                {showAdminBoard && (
-                  <li className="nav-item">
-                    <Link to={"/CrudVisitante"} className="nav-link">
-                      Visitante
-                    </Link>
-                  </li>
-                )}
+
                 {showAdminBoard && (
                   <li className="nav-item">
                     <Link to={"/CrudUsuario"} className="nav-link">
@@ -208,8 +198,7 @@ class App extends Component {
                   </li>
                 )}
               </ul>
-              
-              
+
               {currentUser ? (
                 <ul className="navbar-nav ms-auto">
                   <li className="nav-item">
@@ -259,9 +248,8 @@ class App extends Component {
             <Route path="/academico-noticias" element={<Noticias />} />
             <Route path="/criptomonedas" element={<Criptomonedas />} />
             <Route path="/visitante" element={<Visitante />} />
-            <Route path="/CrudAcademico" element={<CrudAcademico />} />
             <Route path="/CrudUsuario" element={<CrudUsuario />} />
-            <Route path="/CrudVisitante" element={<CrudVisitante />} />
+
             <Route path="/CrudNoticias" element={<CrudNoticias />} />
           </Routes>
         </div>
