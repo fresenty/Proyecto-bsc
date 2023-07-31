@@ -29,6 +29,11 @@
   height: 24px;
 }
 
+/* Cambios para resaltar el título seleccionado */
+.navbar-nav .nav-link.active {
+  color: #000;
+}
+
 .navbar:hover {
   background-color: #0d66d0;
 }
@@ -55,4 +60,3 @@
     margin: 0 5px; /* Agrega un margen horizontal para crear más espacio entre los elementos */
   }
 }
-
