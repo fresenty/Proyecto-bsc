@@ -99,8 +99,6 @@ func GetAcademicoByID(c *fiber.Ctx) error {
    
 	return c.JSON(fiber.Map{"status": "success", "message": "Academico encontrado", "data": data})
    }
-   
-
 
    // UpdateAcademicoByID actualiza un academico existente
    func UpdateAcademicoByID(c *fiber.Ctx) error {

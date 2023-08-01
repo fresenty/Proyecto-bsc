@@ -30,7 +30,7 @@ class BoardAcademico extends Component {
           } else {
             this.setState({ finished: true });
           }
-          if (data.complete < response.data.data.length - 1){
+          if (data.complete < response.data.data.length - 1) {
             response.data.data = response.data.data.slice(0, data.complete + 1);
           }
         });
@@ -65,7 +65,11 @@ class BoardAcademico extends Component {
   };
 
   handleTitleClick = (content, index) => {
-    this.setState({ selectedContent: null, currentIndex: index, loading: true });
+    this.setState({
+      selectedContent: null,
+      currentIndex: index,
+      loading: true,
+    });
     setTimeout(() => {
       this.setState({ selectedContent: content, loading: false }, () => {
         this.setButton(index);
@@ -82,10 +86,13 @@ class BoardAcademico extends Component {
       this.setState({
         selectedContent: null,
         currentIndex: nextIndex,
-        loading: true
+        loading: true,
       });
       setTimeout(() => {
-        this.setState({ selectedContent: nextContent.Contenido, loading: false });
+        this.setState({
+          selectedContent: nextContent.Contenido,
+          loading: false,
+        });
       }, 500);
     }
   };
@@ -106,10 +113,13 @@ class BoardAcademico extends Component {
         this.setState({
           selectedContent: null,
           currentIndex: nextIndex,
-          loading: true
+          loading: true,
         });
         setTimeout(() => {
-          this.setState({ selectedContent: nextContent.Contenido, loading: false });
+          this.setState({
+            selectedContent: nextContent.Contenido,
+            loading: false,
+          });
         }, 500);
       }
     }, 300);
@@ -154,7 +164,9 @@ class BoardAcademico extends Component {
                 </div>
               ) : (
                 selectedContent && (
-                  <div dangerouslySetInnerHTML={{ __html: selectedContent }}></div>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: selectedContent }}
+                  ></div>
                 )
               )}
             </section>
@@ -170,7 +182,9 @@ class BoardAcademico extends Component {
                   </button>
                   <button
                     className="btn btn-primary flex-grow-1"
-                    onClick={this.handleCompletedClick}
+                    data-bs-toggle={!this.state.finished? "modal": ""}
+                    data-bs-target={!this.state.finished? "#alert": ""}
+                    onClick={this.state.finished? this.handleCompletedClick: () => {}}
                     disabled={this.state.next && this.state.finished}
                   >
                     {this.state.next ? "Completado" : "Siguiente"}
@@ -190,6 +204,42 @@ class BoardAcademico extends Component {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+        <div className="modal fade" id="alert" tabIndex="-1" aria-labelledby="alertLabel"  aria-hidden="true">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" i="alertLabel">Confirmar</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                Estás seguro que deseas completar el curso?
+              </div>
+              <div className="modal-footer d-flex justify-content-end">
+                
+                <button
+                  type="button"
+                  onClick={this.handleCompletedClick}
+                  className="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Confirmar
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary me-2"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

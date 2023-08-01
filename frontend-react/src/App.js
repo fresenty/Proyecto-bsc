@@ -30,7 +30,6 @@ class App extends Component {
       showAcademicoBoard: false,
       currentUser: undefined,
       navbarCollapsed: true,
-      activeLink: null, // Nuevo estado para guardar el enlace activo
     };
   }
 
@@ -65,11 +64,6 @@ class App extends Component {
     });
   }
 
-  handleNavLinkClick(index) {
-    // Actualizar el enlace activo cuando se hace clic en un título del Navbar
-    this.setState({ activeLink: index });
-  }
-
   render() {
     const {
       currentUser,
@@ -77,7 +71,6 @@ class App extends Component {
       showAcademicoBoard,
       showEmpresarioBoard,
       navbarCollapsed,
-      activeLink,
     } = this.state;
 
     return (
@@ -105,13 +98,7 @@ class App extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link
-                    to={"/home"}
-                    className={`nav-link ${
-                      activeLink === 0 ? "active" : ""
-                    }`}
-                    onClick={() => this.handleNavLinkClick(0)}
-                  >
+                  <Link to={"/home"} className="nav-link">
                     Inicio
                   </Link>
                 </li>
@@ -119,13 +106,7 @@ class App extends Component {
                   !showAdminBoard &&
                   !showEmpresarioBoard && (
                     <li className="nav-item">
-                      <Link
-                        to={"/visitante"}
-                        className={`nav-link ${
-                          activeLink === 1 ? "active" : ""
-                        }`}
-                        onClick={() => this.handleNavLinkClick(1)}
-                      >
+                      <Link to={"/visitante"} className="nav-link">
                         Curso
                       </Link>
                     </li>
@@ -133,13 +114,7 @@ class App extends Component {
 
                 {showAdminBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/CrudEmpresario"}
-                      className={`nav-link ${
-                        activeLink === 2 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(2)}
-                    >
+                    <Link to={"/CrudEmpresario"} className="nav-link">
                       Cursos
                     </Link>
                   </li>
@@ -147,13 +122,7 @@ class App extends Component {
 
                 {showEmpresarioBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/empresario"}
-                      className={`nav-link ${
-                        activeLink === 3 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(3)}
-                    >
+                    <Link to={"/empresario"} className="nav-link">
                       Curso
                     </Link>
                   </li>
@@ -161,13 +130,7 @@ class App extends Component {
 
                 {showAcademicoBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/academico"}
-                      className={`nav-link ${
-                        activeLink === 4 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(4)}
-                    >
+                    <Link to={"/academico"} className="nav-link">
                       Curso
                     </Link>
                   </li>
@@ -175,26 +138,14 @@ class App extends Component {
 
                 {showAcademicoBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/academico-noticias"}
-                      className={`nav-link ${
-                        activeLink === 5 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(5)}
-                    >
+                    <Link to={"/academico-noticias"} className="nav-link">
                       Noticias
                     </Link>
                   </li>
                 )}
                 {showEmpresarioBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/academico-noticias"}
-                      className={`nav-link ${
-                        activeLink === 6 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(6)}
-                    >
+                    <Link to={"/academico-noticias"} className="nav-link">
                       Noticias
                     </Link>
                   </li>
@@ -203,39 +154,21 @@ class App extends Component {
                   !showAdminBoard &&
                   !showEmpresarioBoard && (
                     <li className="nav-item">
-                      <Link
-                        to={"/academico-noticias"}
-                        className={`nav-link ${
-                          activeLink === 7 ? "active" : ""
-                        }`}
-                        onClick={() => this.handleNavLinkClick(7)}
-                      >
+                      <Link to={"/academico-noticias"} className="nav-link">
                         Noticias
                       </Link>
                     </li>
                   )}
                 {showAcademicoBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/criptomonedas"}
-                      className={`nav-link ${
-                        activeLink === 8 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(8)}
-                    >
+                    <Link to={"/criptomonedas"} className="nav-link">
                       Criptomonedas
                     </Link>
                   </li>
                 )}
                 {showEmpresarioBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/criptomonedas"}
-                      className={`nav-link ${
-                        activeLink === 9 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(9)}
-                    >
+                    <Link to={"/criptomonedas"} className="nav-link">
                       Criptomonedas
                     </Link>
                   </li>
@@ -244,13 +177,7 @@ class App extends Component {
                   !showAdminBoard &&
                   !showEmpresarioBoard && (
                     <li className="nav-item">
-                      <Link
-                        to={"/criptomonedas"}
-                        className={`nav-link ${
-                          activeLink === 10 ? "active" : ""
-                        }`}
-                        onClick={() => this.handleNavLinkClick(10)}
-                      >
+                      <Link to={"/criptomonedas"} className="nav-link">
                         Criptomonedas
                       </Link>
                     </li>
@@ -258,26 +185,14 @@ class App extends Component {
 
                 {showAdminBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/CrudUsuario"}
-                      className={`nav-link ${
-                        activeLink === 11 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(11)}
-                    >
+                    <Link to={"/CrudUsuario"} className="nav-link">
                       Usuarios
                     </Link>
                   </li>
                 )}
                 {showAdminBoard && (
                   <li className="nav-item">
-                    <Link
-                      to={"/CrudNoticias"}
-                      className={`nav-link ${
-                        activeLink === 12 ? "active" : ""
-                      }`}
-                      onClick={() => this.handleNavLinkClick(12)}
-                    >
+                    <Link to={"/CrudNoticias"} className="nav-link">
                       Noticias
                     </Link>
                   </li>

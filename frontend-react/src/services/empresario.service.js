@@ -9,14 +9,9 @@ const empresariosService = {
 
   getInscripcionesbyUserID() {
     return axios.get(API_URL + "/inscripciones/" + sessionStorage.getItem("userID"))
-      .then(response => {
-        const inscripciones = response.data;
-        console.log(inscripciones); // Imprime los datos de las inscripciones en la consola
-        return inscripciones;
-      });
+      .then(response => {return response.data.data});
   },
   
-
   updateIsComplete(userID) {
     return axios.put(API_URL + "/inscripciones/iscomplete/" + userID);
   },

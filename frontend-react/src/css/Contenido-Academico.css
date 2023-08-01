@@ -23,3 +23,62 @@ td.boton-lista:hover {
   max-width: 100%;
   content: center;
 }
+
+
+/* Estilos para organizar los botones horizontalmente en el modal */
+.modal-footer {
+  padding: 1rem; /* Ajusta el espacio interno del footer */
+}
+
+/* Estilos para el botón de Cancelar */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  width: 20%;
+}
+
+/* Estilos para el botón de Confirmar */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  width: 30%
+}
+
+
+
+/* Estilos para el contenedor del modal */
+.modal-content {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para el título del modal */
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Estilos para el botón de cerrar del modal */
+.btn-close {
+  color: #333;
+  opacity: 0.8;
+  font-size: 1.2rem;
+}
+
+/* Estilos para el botón de cerrar del modal al pasar el mouse */
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Estilos para el fondo oscuro del modal */
+.modal-backdrop {
+  opacity: 0.5;
+  background-color: #000;
+}

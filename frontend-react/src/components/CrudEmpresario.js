@@ -270,7 +270,7 @@ class Empresarios extends Component {
                 />
               </div>
               <div className="form-group">
-                <label>Tipos de Curso: </label>
+                <h2>Tipos de Curso: </h2>
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input"
@@ -317,8 +317,8 @@ class Empresarios extends Component {
             <a
               className={
                 this.state.showEmpre
-                  ? "nav-link text-primary active"
-                  : "nav-link text-info"
+                  ? "nav-link text-dark active"
+                  : "nav-link text-primary"
               }
               onClick={() =>
                 this.setState({
@@ -336,8 +336,8 @@ class Empresarios extends Component {
             <a
               className={
                 this.state.showAca
-                  ? "nav-link text-primary active"
-                  : "nav-link text-info"
+                  ? "nav-link text-dark active"
+                  : "nav-link text-primary"
               }
               onClick={() =>
                 this.setState({
@@ -355,8 +355,8 @@ class Empresarios extends Component {
             <a
               className={
                 this.state.showVisi
-                  ? "nav-link text-primary active"
-                  : "nav-link text-info"
+                  ? "nav-link text-dark active"
+                  : "nav-link text-primary"
               }
               onClick={() =>
                 this.setState({

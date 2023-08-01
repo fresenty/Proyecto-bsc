@@ -29,7 +29,7 @@ type User struct {
 type Inscripcion struct {
     gorm.Model
     ID           uint       `gorm:"primaryKey"`
-    IDUser       int        `gorm:"not null" json:"IDUser"`
+    IDUser       int        `gorm:"OnDelete:CASCADE" json:"IDUser"`
     Duser        User       `gorm:"foreignKey:IDUser; constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
     Complete     int        `gorm:"column:iscomplete; not null" json:"complete"`
     PercentCourse float64   `gorm:"column:percent_course; not null" json:"percent_course"`
